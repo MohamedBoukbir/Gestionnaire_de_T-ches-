@@ -36,8 +36,8 @@ public class LoginServlet  extends HttpServlet{
                 System.out.println("Admin's Home");
 
                 HttpSession session = request.getSession(); //Creating a session
-                session.setAttribute("Admin", email); //setting session attribute
-                session.setAttribute("email", email); //setting session attribute
+                session.setAttribute("email", email); //setting session attribute\
+                session.setAttribute("userRole", "Admin");
                 request.setAttribute("email", email);
                 System.out.println("loginservlet");
                 System.out.println(session);
@@ -49,7 +49,8 @@ public class LoginServlet  extends HttpServlet{
 
                 HttpSession session = request.getSession();
                 session.setMaxInactiveInterval(10*60);
-                session.setAttribute("User", email);
+                session.setAttribute("email", email);
+                session.setAttribute("userRole", "User");
                 response.sendRedirect("UserHomeServlet");
             }else if(userValidate.equals("Gestionner"))
             {
@@ -57,7 +58,8 @@ public class LoginServlet  extends HttpServlet{
 
                 HttpSession session = request.getSession();
                 session.setMaxInactiveInterval(10*60);
-                session.setAttribute("Gestionner", email);
+                session.setAttribute("email", email);
+                session.setAttribute("userRole", "Gestionner");
                 response.sendRedirect("GestionnerHomeServlet");
             }
             else
