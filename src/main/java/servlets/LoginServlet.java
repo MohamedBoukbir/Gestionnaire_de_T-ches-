@@ -9,9 +9,6 @@ import java.io.IOException;
 public class LoginServlet  extends HttpServlet{
     public final AuthService authService = new AuthService();
 
-
-
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("testtttttttttttttttttttt");
