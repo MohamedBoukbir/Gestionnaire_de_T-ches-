@@ -5,7 +5,7 @@
 <%@ include file="/Admin/Dashboard.jsp" %>
 <div class="page-wrapper">
     <div class="content container-fluid">
-    <form action="#" method="POST" enctype="multipart/form-data">
+    <form   method="POST" action="AdminServlet?action=updateprofile">
         <div class="main-body">
             <div class="row">
                 <div class="col-lg-4">
@@ -73,6 +73,9 @@
                             </ul>
                         </div>
                     </div>
+                    <% if(request.getAttribute("error")!=null){ String error = request.getAttribute("error").toString();%>
+                    <div  style="color : red"><%=error%></div>
+                    <% }%>
                 </div>
                 <div class="col-lg-8">
                     <div class="card">
@@ -102,7 +105,7 @@
                                     <h6 class="mb-0">Mobile</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="phone" class="form-control"
+                                    <input type="text" name="phonenumber" class="form-control"
                                            value="${user.phoneNumber}" autocomplete="off">
 
                                 </div>
@@ -112,7 +115,7 @@
                                     <h6 class="mb-0">Profession</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="address" class="form-control"
+                                    <input type="text" name="profession" class="form-control"
                                            value="${user.profession}" autocomplete="off">
 
                                 </div>
@@ -123,8 +126,8 @@
                                     <h6 class="mb-0">Role</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="country" class="form-control"
-                                           value="${user.role}" autocomplete="off">
+                                    <input type="text" name="role" class="form-control"
+                                           value="${user.role}" autocomplete="off" disabled>
 
                                 </div>
                             </div>
@@ -141,6 +144,9 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="password" class="form-control" name="current_password"
                                            id="current_password" autocomplete="off" value="">
+                                    <% if(request.getAttribute("erroremailcurrent")!=null){ String erroremailcurrent = request.getAttribute("erroremailcurrent").toString();%>
+                                    <div  style="color : red"><%=erroremailcurrent%></div>
+                                    <% }%>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -159,6 +165,9 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="password" class="form-control" name="password_confirmation"
                                            id="password_confirmation">
+                                    <% if(request.getAttribute("erroremailconfir")!=null){ String erroremailconfir = request.getAttribute("erroremailconfir").toString();%>
+                                    <div  style="color : red"><%=erroremailconfir%></div>
+                                    <% }%>
                                 </div>
                             </div>
 

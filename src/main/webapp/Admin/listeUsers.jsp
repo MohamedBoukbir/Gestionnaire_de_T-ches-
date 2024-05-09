@@ -33,7 +33,7 @@
                   <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="row">
                       <div class="col-xl-10 col-sm-8 col-12">
-                        <label class="employee_count">0   Users</label>
+                        <label class="employee_count">${allUsersCount}   Users</label>
                       </div>
                       <div class="col-xl-1 col-sm-2 col-12">
                         <a href="#" class="btn-view"
@@ -161,18 +161,20 @@
               <a type="button" class="btn-close" data-dismiss="modal" aria-label="Close"> <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img"></a>
           </div>
           <div class="modal-body">
-                           <form action="AdminServlet?action=addGestionner" method="POST"
-                              enctype="multipart/form-data">
+                           <form action="AdminServlet?action=addGestionner" method="POST" >
                   <div class="row">
                       <div class="col-12">
                           <div class="form-group mb-3">
                               <label for="user_id" class="form-label">Name</label>
-                              <select class="form-select" style="height: 50px;" name="user_id" id="user_id" aria-label="Default select example">
+                              <select class="form-select" style="height: 50px;" name="user_id" id="user_id" aria-label="Default select example" required>
                                   <option value="">Choose</option>
                                   <c:forEach items="${users}" var="u">
-                                      <option value="<c:out value='${u.id}' />"> ${u.id} <c:out value="${u.firstname}"/>  <c:out value="${u.lastname}"/></option>
+                                      <option value="<c:out value='${u.id}' />"> <c:out value="${u.firstname}"/>  <c:out value="${u.lastname}"/></option>
                                   </c:forEach>
                               </select>
+                              <% if(request.getAttribute("error")!=null){ String error = request.getAttribute("error").toString();%>
+                              <div  style="color : red"><%=error%></div>
+                              <% }%>
                           </div>
                       </div>
 

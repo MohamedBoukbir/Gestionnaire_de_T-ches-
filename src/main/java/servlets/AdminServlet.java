@@ -32,15 +32,12 @@ public class AdminServlet extends HttpServlet {
         System.out.println(action);
         System.out.println("art=" +at);
 
-        System.out.println(request.getParameter("user_id"));
         switch (at) {
            /* case "/AdminServlet":
                 showDashboard(request, response);
                 break;*/
             case "addGestionner":
                 try {
-                    System.out.println("switch addGestionner");
-                    System.out.println(request.getParameter("user_id"));
                    addGestionner(request, response);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -66,6 +63,15 @@ public class AdminServlet extends HttpServlet {
                 try {
                     System.out.println("profile swich");
                     profileAdmin(request,response);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            case "updateprofile":
+                try {
+                    System.out.println("updateprofile swich");
+                    System.out.println(request.getParameter("phonenumber"));
+                    updateprofile(request,response);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -109,20 +115,20 @@ public class AdminServlet extends HttpServlet {
 
     }
 
-
     private void addGestionner(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException, SQLException {
-        System.out.println("add controller");
-        System.out.println(request.getParameter("user_id"));
-        System.out.println(request.getParameter("user_id"));
-        Long id = Long.parseLong(request.getParameter("user_id"));
-        System.out.println(id);
-//        User user =userDao.findById(id);
-//        user.setRole("Gestionner");
-//        System.out.println(user);
-//        userDao.update(user);
-        // Passez le contrôle au JSP
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/listeUsers.jsp");
-        dispatcher.forward(request, response);
+        String userIdParameter = request.getParameter("user_id");
+        if(userIdParameter != null && !userIdParameter.isEmpty() && !userIdParameter.equals("none") ){
+            Long id = Long.parseLong(userIdParameter);
+            User user =userDao.findById(id);
+            user.setRole("Gestionner");
+            System.out.println(user);
+            userDao.update(user);
+            response.sendRedirect("AdminServlet?action=listUsers");
+        }else{
+            String error = "Veuillez sélectionner un utilisateur.";
+            request.setAttribute("error", error);
+            listUsers(request, response);
+        }
 
     }
     private void listUsers(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
@@ -130,16 +136,12 @@ public class AdminServlet extends HttpServlet {
         List<User> listgestionners = userDao.findGestionners();
         List<User> allusers = userDao.findAll();
         List<User> users = userDao.findUsers();
-
+        int allUsersCount = allusers.size();
+        request.setAttribute("allUsersCount", allUsersCount);
         request.setAttribute("allusers", allusers);
         request.setAttribute("users", users);
         request.setAttribute("listgestionners", listgestionners);
 
-//        for (User user : listgestionners) { // "User" est le type d'élément, "user" est le nom de la variable de boucle
-//            System.out.println("Prénom : " + user.getFirstname());
-//            System.out.println("Nom : " + user.getLastname());
-//        }
-        //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Admin/listeUsers.jsp");
         requestDispatcher.forward(request,response);
 
@@ -160,5 +162,40 @@ public class AdminServlet extends HttpServlet {
         System.out.println("enable function");
         userDao.enableUser(id);
         response.sendRedirect("AdminServlet?action=listUsers");
+    }
+    private void updateprofile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // Récupérer l'objet User de la session
+            User user = (User) session.getAttribute("profile");
+            String phonenumber = request.getParameter("phonenumber");
+            String profession = request.getParameter("profession");
+            String current_password = request.getParameter("current_password");
+            String password_confirmation = request.getParameter("password_confirmation");
+            String password = request.getParameter("password");
+
+            if (phonenumber != null && profession != null && current_password != null && password_confirmation != null && password != null &&
+                    !phonenumber.isEmpty() && !profession.isEmpty() && !current_password.isEmpty() && !password_confirmation.isEmpty() && !password.isEmpty()) {
+                if (!user.getPassword().equals(current_password)) {
+                    String erroremailcurrent = "Le mot de passe actuel est incorrect.";
+                    request.setAttribute("erroremailcurrent", erroremailcurrent);
+                } else if (!password.equals(password_confirmation)) {
+                    String erroremailconfir = "Les mots de passe ne correspondent pas.";
+                    request.setAttribute("erroremailconfir", erroremailconfir);
+                } else {
+                    user.setPassword(password);
+                    user.setProfession(profession);
+                    user.setPhoneNumber(phonenumber);
+                    userDao.update(user);
+                }
+            } else {
+                String error = "Veuillez remplir tous les champs.";
+                request.setAttribute("error", error);
+            }
+        } else {
+            String error = "Session introuvable.";
+            request.setAttribute("error", error);
+        }
+        profileAdmin(request, response);
     }
 }
