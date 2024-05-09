@@ -1,6 +1,7 @@
 package services;
 
 import Dao.UserDao;
+import Util.UserStatus;
 import entity.User;
 import jakarta.persistence.*;
 
@@ -31,10 +32,20 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() {
 //        Query query1 =entityManager.createQuery("select u from User u where u.name like:x");
 //        query1.setParameter("x","%"+mc+"%");
-        Query query =entityManager.createQuery("select u from User u");
+        Query query =entityManager.createQuery("select u from User u where u.role != :x");
+        query.setParameter("x","Admin");
         return query.getResultList();
     }
-
+    public List<User> findGestionners(){
+        Query query =entityManager.createQuery("select u from User u where u.role = :x");
+        query.setParameter("x","Gestionner");
+        return query.getResultList();
+    }
+    public List<User> findUsers(){
+        Query query =entityManager.createQuery("select u from User u where u.role = :x");
+        query.setParameter("x","User");
+        return query.getResultList();
+    }
     @Override
     public User findById(Long id) {
           User u =entityManager.find(User.class,id);
@@ -49,7 +60,20 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteById(Long id) {
+        entityManager.getTransaction().begin();
        User u =entityManager.find(User.class,id);
        entityManager.remove(u);
+        entityManager.getTransaction().commit();
+    }
+    @Override
+    public void enableUser(Long id) {
+        entityManager.getTransaction().begin();
+        User u =entityManager.find(User.class,id);
+        if (u.getUserStatus()== UserStatus.ENABLED){
+            u.setUserStatus(UserStatus.DISABLED);
+        }else{
+            u.setUserStatus(UserStatus.ENABLED);
+        }
+        entityManager.getTransaction().commit();
     }
 }

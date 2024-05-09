@@ -10,5 +10,8 @@ public interface UserDao {
     public User findById(Long id);
     public void update(User u) ;
     public void deleteById(Long id);
+    public void enableUser(Long id);
+    public List<User> findGestionners();
+    public List<User> findUsers();
 
 }

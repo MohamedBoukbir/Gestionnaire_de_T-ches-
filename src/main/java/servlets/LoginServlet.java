@@ -29,7 +29,7 @@ public class LoginServlet  extends HttpServlet{
         String email = request.getParameter("email");
         try
         {
-            String userValidate = authService.auhenticate(email,password);
+            String userValidate = authService.auhenticate(email,password,request);
 
             if(userValidate.equals("Admin"))
             {

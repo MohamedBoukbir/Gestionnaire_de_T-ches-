@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 @Entity
 public class User {
+
+
     @Id
     @GeneratedValue
     private  Long id ;
@@ -22,6 +24,9 @@ public class User {
     @Column(columnDefinition = "ENUM('ENABLED','DISABLED')")
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus ;
+    @ManyToOne(targetEntity = Equipe.class)
+    @JoinColumn(name = "equipe_id")
+    private Equipe equipe;
 
     public User(String firstname, String lastname,LocalDate datebirth,String phoneNumber , String profession, String email, String password, String role) {
         this.firstname = firstname;
@@ -34,7 +39,9 @@ public class User {
         this.role = role;
         this.userStatus = UserStatus.ENABLED;
     }
-
+    public Long getId() {
+        return id;
+    }
     public String getPassword() {
         return password;
     }
