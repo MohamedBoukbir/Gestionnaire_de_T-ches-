@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-@WebFilter(filterName = "FilterAdmin", servletNames = {"AdminServlet","ProjectServlet","TaskServlet"})
+@WebFilter(filterName = "FilterAdmin", servletNames = {"AdminServlet"})
 public class FilterAdmin implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
