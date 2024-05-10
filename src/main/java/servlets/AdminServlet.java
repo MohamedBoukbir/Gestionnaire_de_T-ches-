@@ -1,5 +1,7 @@
 package servlets;
+import Dao.IEquipeDao;
 import Dao.UserDao;
+import entity.Equipe;
 import entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -8,6 +10,7 @@ import jakarta.persistence.Query;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import services.EquipeDaoImpl;
 import services.UserDaoImpl;
 
 import java.io.IOException;
@@ -17,9 +20,11 @@ import java.util.List;
 @WebServlet(name = "AdminServlet", value = "/AdminServlet")
 public class AdminServlet extends HttpServlet {
     public UserDao userDao ;
+    public IEquipeDao equipeDao ;
     @Override
     public void init() throws ServletException {
         userDao=new UserDaoImpl();
+        equipeDao= new EquipeDaoImpl();
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -121,6 +126,9 @@ public class AdminServlet extends HttpServlet {
             Long id = Long.parseLong(userIdParameter);
             User user =userDao.findById(id);
             user.setRole("Gestionner");
+            Equipe equipe = new Equipe("equipe"+id,user);
+            equipeDao.save(equipe);
+//            LocalDate.now()
             System.out.println(user);
             userDao.update(user);
             response.sendRedirect("AdminServlet?action=listUsers");

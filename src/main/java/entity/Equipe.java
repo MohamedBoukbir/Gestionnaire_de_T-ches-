@@ -15,9 +15,13 @@ public class Equipe {
     private List<User> userList = new ArrayList<>();
     @OneToMany(mappedBy = "equipep")
     private List<Project> projectList = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "chef_equipe_id")
+    private User chefEquipe;
+    public Equipe(String name, User chefEquipe) {
 
-    public Equipe(String name) {
         this.name = name;
+        this.chefEquipe = chefEquipe;
     }
     public Equipe() {
     }
@@ -44,6 +48,13 @@ public class Equipe {
 
     public void setProjectList(List<Project> projectList) {
         this.projectList = projectList;
+    }
+    public User getChefEquipe() {
+        return chefEquipe;
+    }
+
+    public void setChefEquipe(User chefEquipe) {
+        this.chefEquipe = chefEquipe;
     }
 
 
