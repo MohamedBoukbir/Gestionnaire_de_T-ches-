@@ -41,6 +41,15 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("x","Gestionner");
         return query.getResultList();
     }
+    public User findbyEmail(String email){
+        Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email");
+        query.setParameter("email", email);
+        try {
+            return (User) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Aucun utilisateur trouvé avec cet e-mail
+        }
+    }
     public List<User> findUsers(){
         Query query =entityManager.createQuery("select u from User u where u.role = :x");
         query.setParameter("x","User");
@@ -54,7 +63,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User u) {
+        entityManager.getTransaction().begin();
         entityManager.merge(u);
+        entityManager.getTransaction().commit();
 
     }
 

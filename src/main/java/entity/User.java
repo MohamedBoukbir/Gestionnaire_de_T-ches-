@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id ;
     private String firstname;
     private String lastname;
@@ -26,6 +26,10 @@ public class User {
     @ManyToOne(targetEntity = Equipe.class)
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
+
+    @ManyToOne(targetEntity = Equipe.class)
+    @JoinColumn(name = "equipe_en_charge_id")
+    private Equipe equipeEnCharge;
 
     public User(String firstname, String lastname,LocalDate datebirth,String phoneNumber , String profession, String email, String password, String role) {
         this.firstname = firstname;
@@ -119,4 +123,12 @@ public class User {
     public String getinitial(String firstname , String lastname){
         return String.valueOf(firstname.toUpperCase().charAt(0)) + lastname.toUpperCase().charAt(0);
     }
+    public Equipe getEquipeEnCharge() {
+        return equipeEnCharge;
+    }
+
+    public void setEquipeEnCharge(Equipe equipeEnCharge) {
+        this.equipeEnCharge = equipeEnCharge;
+    }
+
 }
