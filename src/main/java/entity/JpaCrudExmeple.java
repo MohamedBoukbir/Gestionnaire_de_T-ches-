@@ -21,11 +21,11 @@ public class JpaCrudExmeple {
         EntityManager entityManager =emf.createEntityManager();
         entityManager.getTransaction().begin();
         User user= new User();
-        user.setFirstname("Mohamed");
+        user.setFirstname("koku");
         user.setRole("Gestionner");
-        user.setEmail("gestioner2@gmail.com");
-        user.setPassword("test12345");
-        user.setUserStatus(UserStatus.DISABLED);
+        user.setEmail("gestion@gmail.com");
+        user.setPassword("1234");
+        user.setUserStatus(UserStatus.ENABLED);
         entityManager.persist(user);
         entityManager.getTransaction().commit();
     }

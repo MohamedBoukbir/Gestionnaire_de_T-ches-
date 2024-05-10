@@ -8,7 +8,6 @@ import java.time.LocalDate;
 @Entity
 public class User {
 
-
     @Id
     @GeneratedValue
     private  Long id ;
