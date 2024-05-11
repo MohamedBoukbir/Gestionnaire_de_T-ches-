@@ -24,9 +24,12 @@ public class LoginServlet  extends HttpServlet{
 
         String password = request.getParameter("password");
         String email = request.getParameter("email");
+        System.out.println(",assima's Home");
+
         try
         {
             String userValidate = authService.auhenticate(email,password,request);
+            System.out.println( userValidate);
 
             if(userValidate.equals("Admin"))
             {

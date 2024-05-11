@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="css/menu.css">
 
 	</head>
-	<body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
+  <body class="img js-fullheight" style="background-image: url(images/kkkkkk.jpg)">
+
 
 	<div class="site-mobile-menu">
 		<div class="site-mobile-menu-header">
@@ -44,7 +45,7 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Connexion</h2>
+					<h2 class="heading-section" style="font-weight: bold;">Connexion</h2>
 				</div>
 			</div>
 			<div class="row justify-content-center">
@@ -60,18 +61,19 @@
                     </div>
 	            <div class="form-group">
 	              <input id="password-field" name="password" type="password" class="form-control" placeholder="Mot de passe" required>
-	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password" ></span>
                 </div>
 	            <div class="form-group">
-	            	<button type="submit" class="form-control btn btn-primary submit px-3">Se connecter</button>
+	            	<button type="submit" class="  form-control btn btn-primary submit px-3" style="font-weight: bold;">Se connecter</button>
 	            </div>
 
 	            <div class="form-group">
-	            	<a href="RegisterServlet" text-align="center">Pas encore de compte ? inscrivez vous</a>
+	            	<a href="RegisterServlet"  style="font-weight: bold;margin-left: 10% ;">Pas encore de compte ? inscrivez vous</a>
 	            </div>
 	          </form>
 		</div>
 	</section>
+
 
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.sticky.js"></script>
@@ -82,3 +84,82 @@
 
 	</body>
 </html>
+
+
+<%--
+
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Connexion</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/menu.css">
+	<style>
+		#password-field::placeholder {
+			color: black; /* Remplacez cette valeur par la couleur que vous souhaitez utiliser pour l'attribut placeholder */
+		}
+	</style>
+</head>
+<body>
+<section class="" style="background-color: #14303C;height: 100%; ">
+	<div class="container py-5 h-100" style="background-color: #14303C">
+		<div class="row d-flex  align-items-center " style="margin-top: 1%; background-color: #14303C">
+			<div class="col col-xl-10">
+				<div class="card" style="border-radius: 1rem; width: 100%;border-right: #fcf8e3 ;background-color: #14303C">
+					<div class="row g-0">
+
+						<div class="col-md-6 col-lg-6 d-none d-md-block" style="background-color: #14303C;">
+							<img src="images/photo.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; height: 100%; width: 100%" />
+						</div>
+
+						<div class="col-md-6 col-lg-6  d-flex align-items-center align-items-start" style="background-color: #14303C; width: 50% ;">
+							<div class="card-body p-4 p-lg-5 text-black" style="margin-top: 0.2px;" >
+
+								<form action="LoginServlet" method="POST" class="signin-form">
+
+									<div class="d-flex align-items-center mb-3 pb-1" style="margin-top: 1%">
+										<img src="images/ff.jpg" alt="login form" class="img-fluid" style=" width:40%;height: 40%;border-radius: 1rem 0 0 1rem; " />
+
+									</div>
+									<h2 class="heading-section" style="color: #E2834C; margin-top: 1%;">Connexion</h2>
+
+
+
+
+									<div data-mdb-input-init class=" mb-4">
+										<input type="text" name="email" style="border-color: #E2834C;" class="form-control form-control-lg  " placeholder="E-mail" required>
+
+									</div>
+
+									<div data-mdb-input-init class="form-outline mb-4">
+										<input id="password-field" name="password" type="password" style="border-color: #E2834C;" class="form-control form-control-lg" placeholder="Mot de passe" required>
+										<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password" style="color: transparent"></span>
+									</div>
+
+									<div class="pt-1 mb-4">
+										<button data-mdb-button-init data-mdb-ripple-init type="submit"  style="background-color: #E2834C; color: white" class="form-control btn btn-dark btn-lg btn-block submit ">Se connecter</button>
+
+									</div>
+
+									<p >
+										<a href="RegisterServlet"  style="color: #E2834C;" text-align="center">Pas encore de compte ? inscrivez vous</a>
+										</p>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</body>
+</html>--%>
