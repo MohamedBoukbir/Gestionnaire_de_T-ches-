@@ -23,7 +23,7 @@ public class Tache {
         this.membreEquipe = membreEquipe;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

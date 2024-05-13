@@ -37,7 +37,6 @@ public class GestionnerHomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         System.out.println("GestionnerHomeServlet");
         //request.getRequestDispatcher("Home.jsp").forward(request,response);
 
@@ -59,6 +58,14 @@ public class GestionnerHomeServlet extends HttpServlet {
                 try {
                     System.out.println("delete swich");
                     delete(request, response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "deletetache":
+                try {
+                    System.out.println("delete swich");
+                    deletetache(request, response);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -113,6 +120,14 @@ public class GestionnerHomeServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
+            case "removeMemberFromTeam":
+                try {
+                    System.out.println("member remove swich");
+                    removeMemberFromTeam(request,response);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
 
             default:
 
@@ -152,9 +167,10 @@ public class GestionnerHomeServlet extends HttpServlet {
         System.out.println("add project");
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        String inputDate = request.getParameter("datep");
-        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate datep = LocalDate.parse(inputDate, parser);
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String datep = currentDate.format(formatter);
+        request.setAttribute("datep", datep);
 
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -202,6 +218,13 @@ public class GestionnerHomeServlet extends HttpServlet {
         projectDao.deleteById(id);
         response.sendRedirect("GestionnerHomeServlet");
     }
+    private void deletetache(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        System.out.println("delete id "+id);
+        taskDao.deleteById(id);
+        listTache(request, response);
+    }
+
     private void addMemberToTeam(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("user");
         HttpSession session = request.getSession(false);
@@ -243,6 +266,7 @@ public class GestionnerHomeServlet extends HttpServlet {
             System.out.println("Session non trouvée");
         }
     }
+
 
 
 
@@ -359,6 +383,48 @@ public class GestionnerHomeServlet extends HttpServlet {
             response.sendRedirect("GestionnerHomeServlet");
         }
 
+    }
+    private void removeMemberFromTeam(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userId = request.getParameter("id");
+        System.out.println(userId);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // Récupérer l'utilisateur connecté
+            User connectedUser = (User) session.getAttribute("profile");
+            if (connectedUser != null && connectedUser.getEquipeEnCharge() != null) {
+                // Récupérer l'ID de l'équipe du gestionnaire connecté
+                Long equipeId = connectedUser.getEquipeEnCharge().getId();
+                try {
+                    if (userId != null && !userId.isEmpty()) {
+                        Long id = Long.parseLong(userId);
+                        User userToRemove = userDao.findById(id);
+                        if (userToRemove != null) {
+                            // Retirer l'utilisateur de l'équipe
+                            Equipe equipe = equipeDao.findById(equipeId);
+                            System.out.println("rrttyyuuiioo");
+                            if (equipe != null) {
+                                System.out.println("bonsoir");
+                                equipe.retirerUtilisateur(userToRemove);
+                                userDao.updateEquipe(equipe); // Mettre à jour l'équipe
+                            }
+                        }
+                    } else {
+                        System.out.println("L'ID de l'utilisateur est vide");
+                    }
+                    listequipe(request, response);// Redirection vers la liste
+                } catch (NumberFormatException e) {
+                    System.out.println("Format de l'ID de l'utilisateur invalide : " + e.getMessage());
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    // Gérer les autres erreurs
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("Utilisateur ou équipe non trouvés");
+            }
+        } else {
+            System.out.println("Session non trouvée");
+        }
     }
 
 

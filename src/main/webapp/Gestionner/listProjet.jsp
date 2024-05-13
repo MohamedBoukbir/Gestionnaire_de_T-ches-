@@ -76,7 +76,7 @@
                                             <form action="GestionnerHomeServlet?action=delete&id=<c:out value='${project.id}' />" method="POST" enctype="multipart/form-data">
 
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Supprimer Utilisateur</h4>
+                                                    <h4 class="modal-title">Supprimer Project</h4>
                                                     <a type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img">
                                                     </a>
@@ -125,13 +125,10 @@
                                 <label for="name" class="col-form-label" >Name:</label>
                                 <input type="text" id="name" name="name"  class="form-control p-3 my-2"  />
                                 <div class="form-group">
-                                    <div class="datepicker date input-group">
-                                        <input type="text" name="datep" placeholder="Choose Date" class="form-control" id="fecha1">
-                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                    <div class="form-group">
+                                        <label for="datep" class="col-form-label">Date affectation :</label>
+                                        <input id="datep" name="datep" class="form-control" value="${datep}" readonly />
                                     </div>
-                                    <% if(request.getAttribute("errordatep")!=null){ String errordatep = request.getAttribute("errordatep").toString();%>
-                                    <div  style="color : red"><%=errordatep%></div>
-                                    <% }%>
                                 </div>
                                 <label for="description" class="col-form-label" >Description:</label>
                                 <input type="text"  id="description" name="description"  class="form-control p-3 my-2"  />

@@ -1,7 +1,9 @@
 package services;
 
 import Dao.IProjectDao;
+import Dao.ITaskDao;
 import entity.Project;
+import entity.Tache;
 import entity.User;
 import jakarta.persistence.*;
 
@@ -9,6 +11,7 @@ import java.util.List;
 
 public class ProjectDaoImpl implements IProjectDao {
     private EntityManager entityManager;
+    private ITaskDao taskDao=new TacheDaoImpl();
     public ProjectDaoImpl() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager=entityManagerFactory.createEntityManager();
@@ -47,6 +50,7 @@ public class ProjectDaoImpl implements IProjectDao {
     public void deleteById(Long id) {
         entityManager.getTransaction().begin();
         Project p =entityManager.find(Project.class,id);
+        deleteTasksByProjectId(id);
         entityManager.remove(p);
         entityManager.getTransaction().commit();
     }
@@ -54,5 +58,12 @@ public class ProjectDaoImpl implements IProjectDao {
     public Project findById(Long id) {
         Project p =entityManager.find(Project.class,id);
         return p;
+    }
+    // Suppression des tâches liées au projet
+    public void deleteTasksByProjectId(Long projectId) {
+        List<Tache> tasks = taskDao.findTasksByProjectId(projectId);
+        for (Tache task : tasks) {
+            taskDao.deleteById(task.getId());
+        }
     }
 }
