@@ -101,7 +101,7 @@ public class AdminServlet extends HttpServlet {
         List<User> listUser = userDao.findAll();
         request.setAttribute("listUser", listUser);
         //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Admin/listequipe.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Admin/listeUsers.jsp");
         requestDispatcher.forward(request,response);
     }
     private void profileAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -128,6 +128,7 @@ public class AdminServlet extends HttpServlet {
             user.setRole("Gestionner");
             Equipe equipe = new Equipe("equipe"+id,user);
             equipeDao.save(equipe);
+            user.setEquipeEnCharge(equipe);
 //            LocalDate.now()
             System.out.println(user);
             userDao.update(user);

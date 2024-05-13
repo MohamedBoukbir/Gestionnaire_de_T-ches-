@@ -23,6 +23,15 @@ public class Equipe {
         this.name = name;
         this.chefEquipe = chefEquipe;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Equipe() {
     }
 
@@ -57,5 +66,9 @@ public class Equipe {
         this.chefEquipe = chefEquipe;
     }
 
+    public void ajouterUtilisateur(User utilisateur) {
+        userList.add(utilisateur);
+        utilisateur.setEquipe(this);
+    }
 
 }

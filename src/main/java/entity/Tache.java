@@ -1,16 +1,27 @@
 package entity;
 
 import jakarta.persistence.*;
-
+@Entity
 public class Tache {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String titretache;
     private String dateaffectation;
-//    @ManyToOne(targetEntity = Project.class)
-//    @JoinColumn(name = "projet_id"))
+    @ManyToOne(targetEntity = Project.class)
+    @JoinColumn(name = "projet_id")
     private Project project;
+    @ManyToOne
+    @JoinColumn(name = "membre_equipe_id")
+    private User membreEquipe;
+
+    public User getMembreEquipe() {
+        return membreEquipe;
+    }
+
+    public void setMembreEquipe(User membreEquipe) {
+        this.membreEquipe = membreEquipe;
+    }
 
     public int getId() {
         return id;

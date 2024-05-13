@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="Util.UserStatus" %>
 <%@ page isELIgnored="false"%>
-<%@ include file="/Admin/Dashboard.jsp" %>
+<%@ include file="/Gestionner/Dashboard.jsp" %>
 <div class="page-wrapper">
     <div class="content container-fluid">
         <div class="row">
@@ -56,7 +56,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${allprojects}" var="project">
+                            <c:forEach items="${listProject}" var="project">
                                 <tr>
                                     <td> <c:out value="${project.name}"/> </td>
                                     <td><c:out value="${project.datep}"/></td>
@@ -109,41 +109,6 @@
 
 </div>
 
-<%--<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--%>
-<%--    <form action="GestionnerHomeServlet?action=addProject" method="POST">--%>
-<%--                <div class="modal-dialog" role="document">--%>
-<%--                    <div class="modal-content">--%>
-<%--                        <div class="modal-header">--%>
-<%--                            <h5 class="modal-title" id="exampleModalLabel">New Project</h5>--%>
-<%--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-<%--                                <span aria-hidden="true">&times;</span>--%>
-<%--                            </button>--%>
-<%--                        </div>--%>
-<%--                        <div class="modal-body">--%>
-<%--                            <div class="form-group">--%>
-
-<%--                                <label for="name" class="col-form-label">Nom Projet:</label>--%>
-<%--                                <input type="text" class="form-control" id="name" name="name" required="required" >--%>
-
-<%--                                <label for="datep" class="col-form-label">Date creation:</label>--%>
-<%--                                <input type="text" class="form-control" id="datep" name="datep" required="required">--%>
-
-<%--                                <label for="description" class="col-form-label">Description:</label>--%>
-<%--                                <input type="text" class="form-control" id="description" name="description" required="required">--%>
-
-<%--                            </div>--%>
-
-
-<%--                        </div>--%>
-<%--                        <div class="modal-footer">--%>
-<%--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--%>
-<%--                            <button  type="submit" class="btn btn-primary">Sauvegarder</button>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--    </form></div>--%>
-
-
 
         <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -159,8 +124,15 @@
                             <div class="form-group">
                                 <label for="name" class="col-form-label" >Name:</label>
                                 <input type="text" id="name" name="name"  class="form-control p-3 my-2"  />
-                                <label for="datep" class="col-form-label" >Date:</label>
-                                <input type="text" id="datep" name="datep" class="form-control p-3 my-2"  />
+                                <div class="form-group">
+                                    <div class="datepicker date input-group">
+                                        <input type="text" name="datep" placeholder="Choose Date" class="form-control" id="fecha1">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <% if(request.getAttribute("errordatep")!=null){ String errordatep = request.getAttribute("errordatep").toString();%>
+                                    <div  style="color : red"><%=errordatep%></div>
+                                    <% }%>
+                                </div>
                                 <label for="description" class="col-form-label" >Description:</label>
                                 <input type="text"  id="description" name="description"  class="form-control p-3 my-2"  />
 

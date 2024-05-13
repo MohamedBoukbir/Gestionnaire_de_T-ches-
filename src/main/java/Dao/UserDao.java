@@ -1,5 +1,6 @@
 package Dao;
 
+import entity.Equipe;
 import entity.User;
 
 import java.util.List;
@@ -14,5 +15,7 @@ public interface UserDao {
     public List<User> findGestionners();
     public List<User> findUsers();
     public User findbyEmail(String email);
-
+    public void updateEquipe(Equipe equipe);
+    public List<User> findMembresEquipe(Equipe equipe);
+    public List<User> findUsersNotMembres();
 }

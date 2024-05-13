@@ -12,13 +12,13 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id ;
     private String name;
-   // @Temporal(TemporalType.DATE)
-    private String datep;
+    @Temporal(TemporalType.DATE)
+    private LocalDate datep;
     @ManyToOne(targetEntity = Equipe.class)
     @JoinColumn(name = "equipe_id")
     private Equipe equipep;
     private String description;
-//    @OneToMany(mappedBy = "tache")
+//    @OneToMany(mappedBy = "taches")
 //    private List<Tache> taches= new ArrayList<Tache>();
 
     public Long getId() {
@@ -29,15 +29,15 @@ public class Project {
         this.id = id;
     }
 
-    public String getDatep() {
+    public LocalDate getDatep() {
         return datep;
     }
 
-    public void setDatep(String datep) {
+    public void setDatep(LocalDate datep) {
         this.datep = datep;
     }
 
-    public Project(String name, String datep, String description) {
+    public Project(String name, LocalDate datep, String description) {
         this.name = name;
         this.datep = datep;
         this.description = description;

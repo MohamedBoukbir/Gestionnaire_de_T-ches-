@@ -2,6 +2,7 @@ package services;
 
 import Dao.UserDao;
 import Util.UserStatus;
+import entity.Equipe;
 import entity.User;
 import jakarta.persistence.*;
 
@@ -55,11 +56,26 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("x","User");
         return query.getResultList();
     }
+    public List<User> findUsersNotMembres() {
+        Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.equipe IS NULL AND u.role = :role");
+        query.setParameter("role", "User");
+        return query.getResultList();
+    }
+
     @Override
     public User findById(Long id) {
           User u =entityManager.find(User.class,id);
         return u;
     }
+    @Override
+    public List<User> findMembresEquipe(Equipe equipe) {
+        Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.equipe = :equipe and u.role = :x ");
+        query.setParameter("equipe", equipe);
+        query.setParameter("x","User");
+        return query.getResultList();
+    }
+
+
 
     @Override
     public void update(User u) {
@@ -87,4 +103,10 @@ public class UserDaoImpl implements UserDao {
         }
         entityManager.getTransaction().commit();
     }
+    public void updateEquipe(Equipe equipe) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(equipe);
+        entityManager.getTransaction().commit();
+    }
+
 }

@@ -31,7 +31,15 @@ public class User {
     @JoinColumn(name = "equipe_en_charge_id")
     private Equipe equipeEnCharge;
 
-    public User(String firstname, String lastname,LocalDate datebirth,String phoneNumber , String profession, String email, String password, String role) {
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+
+    public User(String firstname, String lastname, LocalDate datebirth, String phoneNumber , String profession, String email, String password, String role) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.datebirth = datebirth;

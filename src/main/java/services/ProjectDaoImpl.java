@@ -19,11 +19,11 @@ public class ProjectDaoImpl implements IProjectDao {
     public List<Project> findAll() {
         Query query = entityManager.createQuery("select p from Project p");
         List<Project> projects = query.getResultList();
-        for (Project project : projects) {
-            System.out.println("Project Name: " + project.getName());
-            System.out.println("Date Creation: " + project.getDatep());
-            System.out.println("Description: " + project.getDescription());
-        }
+//        for (Project project : projects) {
+//            System.out.println("Project Name: " + project.getName());
+//            System.out.println("Date Creation: " + project.getDatep());
+//            System.out.println("Description: " + project.getDescription());
+//        }
         return projects;
     }
     @Override
@@ -38,11 +38,21 @@ public class ProjectDaoImpl implements IProjectDao {
             entityTransaction.rollback();
         }
     }
+    public void updateproject(Project project) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(project);
+        entityManager.getTransaction().commit();
+    }
     @Override
     public void deleteById(Long id) {
         entityManager.getTransaction().begin();
         Project p =entityManager.find(Project.class,id);
         entityManager.remove(p);
         entityManager.getTransaction().commit();
+    }
+    @Override
+    public Project findById(Long id) {
+        Project p =entityManager.find(Project.class,id);
+        return p;
     }
 }

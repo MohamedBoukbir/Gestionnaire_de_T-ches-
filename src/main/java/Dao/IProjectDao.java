@@ -9,4 +9,5 @@ public interface IProjectDao {
     public void save(Project p);
     public List<Project> findAll();
     public void deleteById(Long id);
+    public Project findById(Long id);
 }

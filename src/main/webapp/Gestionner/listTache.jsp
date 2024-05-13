@@ -1,6 +1,7 @@
  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   <%@ include file="/Gestionner/Dashboard.jsp" %>
-<div class="page-wrapper">
+ <%@ page isELIgnored="false"%>
+ <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="row">
                 <div class="col-xl-12 col-sm-12 col-12">
@@ -9,9 +10,9 @@
                             <li class="breadcrumb-item">
                                 <a href="#"><img src="img/dash.png" class="mr-2" alt="breadcrumb" />Home</a>
                             </li>
-                            <li class="breadcrumb-item active">User</li>
+                            <li class="breadcrumb-item active">Tache</li>
                         </ul>
-                        <h3>Users</h3>
+                        <h3>Taches</h3>
                     </div>
                 </div>
                 <div class="col-xl-12 col-sm-12 col-12 mb-4">
@@ -23,8 +24,8 @@
                       </ul>
 
 
-                  <a class="btn-add" href="#" data-toggle="modal" data-target="#AddModal"
-                        ><i data-feather="plus"></i> User</a
+                  <a class="btn-add" href="#" data-toggle="modal" data-target="#AddTaskModal"
+                        ><i data-feather="plus"></i> Tache</a
                       >
                     </div>
                   </div>
@@ -53,51 +54,70 @@
                         <table  id="example" class="table  spacethtd custom-table no-footer" >
                           <thead>
                             <tr>
-                              <th >Nom</th>
-                              <th >Prenom</th>
-                              <th >Classe</th>
-                              <th >Civilite</th>
-                              <th >Level</th>
-                              <th >Email</th>
+                              <th >Titre tache</th>
+                              <th >Date affectation</th>
                               <th >Action</th>
                             </tr>
                           </thead>
-                          <tbody>
+                            <tbody>
+                            <c:forEach items="${alltache}" var="tache">
+                                <tr>
+                                    <td> <c:out value="${tache.titretache}"/> </td>
+                                    <td><c:out value="${tache.dateaffectation}"/></td>
+<%--                                    <td><c:out value="${tache.projet_id.id}"/></td>--%>
+
+                                    <td>
+                                        <a type="button" class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteModal${project.id}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <%--                            /// delete //--%>
+                                <div class="modal fade" id="deleteModal${tache.id}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="GestionnerHomeServlet?action=delete&id=<c:out value='${tache.id}' />" method="POST" enctype="multipart/form-data">
+
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Supprimer Utilisateur</h4>
+                                                    <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img">
+                                                    </a>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Voulez-vous supprimer le projet ${tache.titretache}  </b> ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn gray btn-outline-secondary"
+                                                            data-dismiss="modal">Annuler</button>
+                                                    <button type="submit"
+                                                            class="btn gray btn-outline-danger">Supprimer</button>
 
 
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%--     ///  end delete //--%>
 
-
-                            <tr>
-
-                                <td>Mohamed/td>
-                                <td>mohamed</td>
-                                <td>ok</td>
-                                <td>ok</td>
-                                <td>ok</td>
-                                <td>ok</td>
-
-
-                                <td>
-                                  <a type="button" class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteModal{{ $user->id }}">
-                                    <i data-feather="trash-2"></i>
-                                  </a>
-
-                                  </td>
-                            </tr>
-
-                            <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                            <div class="modal fade" id="deleteModal{{ $tache->id }}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                   <div class="modal-content">
-                                      <form action="#" method="POST" enctype="multipart/form-data">
+                                      <form action="#" method="POST" >
 
                                           <div class="modal-header">
-                                              <h4 class="modal-title">Supprimer Utilisateur</h4>
+                                              <h4 class="modal-title">Supprimer Tache</h4>
                                               <a type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img">
                                               </a>
                                           </div>
                                           <div class="modal-body">
-                                            Voulez-vous supprimer l utiliasateur x</b> ?
+                                            Voulez-vous supprimer la tache x</b> ?
                                           </div>
                                           <div class="modal-footer">
                                             <button type="button" class="btn gray btn-outline-secondary"
@@ -124,37 +144,63 @@
     </div>
 
 
-<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h2 class="modal-title fs-5" id="exampleModalLabel"> Ajouter Utilisateur  </h2>
-              <a type="button" class="btn-close" data-dismiss="modal" aria-label="Close"> <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img"></a>
-          </div>
-          <div class="modal-body">
-            <form action="#" method="POST"
-            enctype="multipart/form-data">
-            <div class="row">
-                <div class="col-12 ">
-                    <div class="col-12">
-                        <div class="mb-3">
-                            <label for="nom" class="form-label">Nom</label>
-                            <input class="form-control" required  name="nom" type="text"
-                                id="nom"  >
+ <!-- Ajout du formulaire pour ajouter des tâches -->
+ <div class="modal fade" id="AddTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h2 class="modal-title fs-5" id="exampleModalLabel"> Ajouter Tâche </h2>
+                 <a type="button" class="btn-close" data-dismiss="modal" aria-label="Close"> <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img"></a>
+             </div>
+             <div class="modal-body">
+                 <form action="GestionnerHomeServlet?action=addTask" method="POST">
+                     <div class="row">
+                         <div class="col-12">
+                             <div class="form-group">
+                             <label for="projectId">Sélectionnez le projet :</label>
+                             <select id="projectId" name="projectId">
+                                 <c:forEach items="${projects}" var="project">
+                                     <option value="${project.id}">${project.name}</option>
+                                 </c:forEach>
+                             </select>
+                             </div></div>
+                         <div class="col-12">
+                             <div class="form-group">
+                                 <label for="titretache" class="col-form-label">Titre tache:</label>
+                                 <input id="titretache" name="titretache" class="form-control p-3 my-2" />
+                             </div>
 
-                        </div>
-                    </div>
-                </div>
 
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <button class="btn btn-success w-100 mt-4" type="submit"> Sauvegarder</button>
-                                </div>
-                            </div>
+                                 <%--                                 <div class="datepicker date input-group">--%>
+                                 <%--                                     <input type="text" name="dateaffectation" placeholder="Choose Date" class="form-control" id="fecha1">--%>
+                                 <%--                                     <span class="input-group-text"><i class="fa fa-calendar"></i></span>--%>
+                                 <%--                                 </div>--%>
+                                 <%--                             </div>--%>
+                             <div class="form-group">
+                                 <label for="dateaffectation" class="col-form-label">Date affectation :</label>
+                                 <input id="dateaffectation" name="dateaffectation" class="form-control" value="${dateaffectation}" readonly />
+                             </div>
 
-          </div>
-        </form>
-      </div>
-      </div>
-  </div>
+                             <div class="form-group">
+                             <label for="membreEquipeId">Membre de l'équipe :</label>
+                             <select id="membreEquipeId" name="membreEquipeId">
+                                 <c:forEach items="${membresEquipe}" var="membre">
+                                     <option value="${membre.id}">${membre.firstname} ${membre.lastname}</option>
+                                 </c:forEach>
+                             </select>
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-12">
+                             <div class="mb-3">
+                                 <button class="btn btn-success w-100 mt-4" type="submit">Ajouter Tâche</button>
+                             </div>
+                         </div>
+                     </div>
+                     </div> </form>
+             </div>
+         </div>
+     </div>
+ </div>
+
 </div>
