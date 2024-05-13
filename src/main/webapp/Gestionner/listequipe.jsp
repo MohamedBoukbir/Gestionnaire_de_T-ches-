@@ -89,7 +89,7 @@
                                                  </div>
                                                  <div class="modal-body">
                                                      Voulez-vous supprimer l utiliasateur ${user.firstname}  </b> ?
-                                                     <label><c:out value='${user.id}' /></label>
+<%--                                                     <label><c:out value='${user.id}' /></label>--%>
                                                  </div>
                                                  <div class="modal-footer">
                                                      <button type="button" class="btn gray btn-outline-secondary"
