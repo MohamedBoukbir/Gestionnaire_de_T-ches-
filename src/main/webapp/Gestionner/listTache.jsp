@@ -67,7 +67,7 @@
 <%--                                    <td><c:out value="${tache.projet_id.id}"/></td>--%>
 
                                     <td>
-                                        <a type="button" class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteModal${project.id}">
+                                        <a type="button" class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteModal${tache.id}">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                     </td>
@@ -77,16 +77,17 @@
                                 <div class="modal fade" id="deleteModal${tache.id}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form action="GestionnerHomeServlet?action=delete&id=<c:out value='${tache.id}' />" method="POST" enctype="multipart/form-data">
+                                            <form method="POST" action="GestionnerHomeServlet?action=deletetache&id=<c:out value='${tache.id}' />">
 
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Supprimer Utilisateur</h4>
+                                                    <h4 class="modal-title">Supprimer Tache</h4>
                                                     <a type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img">
                                                     </a>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Voulez-vous supprimer le projet ${tache.titretache}  </b> ?
+                                                    Voulez-vous supprimer la tache ${tache.titretache}  </b> ?
+<%--                                                    <label><c:out value='${tache.id}' /></label>--%>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn gray btn-outline-secondary"
@@ -102,37 +103,9 @@
                                 </div>
                                 <%--     ///  end delete //--%>
 
+
+
                             </c:forEach>
-                            </tbody>
-                        </table>
-                            <div class="modal fade" id="deleteModal{{ $tache->id }}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                  <div class="modal-content">
-                                      <form action="#" method="POST" >
-
-                                          <div class="modal-header">
-                                              <h4 class="modal-title">Supprimer Tache</h4>
-                                              <a type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img">
-                                              </a>
-                                          </div>
-                                          <div class="modal-body">
-                                            Voulez-vous supprimer la tache x</b> ?
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn gray btn-outline-secondary"
-                                            data-dismiss="modal">Anuller</button>
-                                        <button type="submit"
-                                            class="btn gray btn-outline-danger">Supprimer</button>
-
-
-                                          </div>
-                                      </form>
-                                  </div>
-                              </div>
-                          </div>
-
-
                           </tbody>
                         </table>
                       </div>

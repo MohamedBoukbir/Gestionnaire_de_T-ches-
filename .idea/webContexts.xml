@@ -9,6 +9,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Admin/profileAdmin.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Gestionner/Dashboard.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Gestionner" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Gestionner/listProjet.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Gestionner" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Gestionner/listTache.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Gestionner" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/Gestionner/listequipe.jsp" value="file://$PROJECT_DIR$/src/main/webapp/Gestionner" />
       </map>
     </option>

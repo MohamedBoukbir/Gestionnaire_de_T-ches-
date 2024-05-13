@@ -53,4 +53,12 @@ public class TacheDaoImpl implements ITaskDao {
         Tache t =entityManager.find(Tache.class,id);
         return t;
     }
+    public List<Tache> findTasksByProjectId(Long projectId) {
+        Query query = entityManager.createQuery("SELECT t FROM Tache t WHERE t.project.id = :projectId");
+        query.setParameter("projectId", projectId);
+        List<Tache> tasks = query.getResultList();
+        return tasks;
+    }
+
+
     }

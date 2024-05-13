@@ -79,7 +79,7 @@
                                  <div class="modal fade" id="deleteModal${user.id}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
                                      <div class="modal-dialog">
                                          <div class="modal-content">
-                                             <form action="AdminServlet?action=delete&id=<c:out value='${user.id}' />" method="POST" enctype="multipart/form-data">
+                                             <form action="GestionnerHomeServlet?action=removeMemberFromTeam&id=<c:out value='${user.id}' />" method="POST">
 
                                                  <div class="modal-header">
                                                      <h4 class="modal-title">Supprimer Utilisateur</h4>
@@ -89,6 +89,7 @@
                                                  </div>
                                                  <div class="modal-body">
                                                      Voulez-vous supprimer l utiliasateur ${user.firstname}  </b> ?
+<%--                                                     <label><c:out value='${user.id}' /></label>--%>
                                                  </div>
                                                  <div class="modal-footer">
                                                      <button type="button" class="btn gray btn-outline-secondary"
