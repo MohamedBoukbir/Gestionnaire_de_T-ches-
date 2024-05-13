@@ -1,6 +1,10 @@
 package entity;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Tache {
     @Id
@@ -14,6 +18,10 @@ public class Tache {
     @ManyToOne
     @JoinColumn(name = "membre_equipe_id")
     private User membreEquipe;
+    @OneToMany(mappedBy = "commentaires")
+    private List<Commentaire> commentaires = new ArrayList<>();
+
+
 
     public User getMembreEquipe() {
         return membreEquipe;

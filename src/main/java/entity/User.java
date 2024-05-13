@@ -5,6 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class User {
 
@@ -30,6 +33,8 @@ public class User {
     @ManyToOne(targetEntity = Equipe.class)
     @JoinColumn(name = "equipe_en_charge_id")
     private Equipe equipeEnCharge;
+    @OneToMany(mappedBy = "commentaires")
+    private List<Commentaire> commentaires = new ArrayList<>();
 
     public Equipe getEquipe() {
         return equipe;

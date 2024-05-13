@@ -5,7 +5,6 @@ import Util.UserStatus;
 import entity.Equipe;
 import entity.User;
 import jakarta.persistence.*;
-
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
