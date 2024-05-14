@@ -14,11 +14,11 @@ public class Project {
     private String name;
     private String datep;
     @ManyToOne(targetEntity = Equipe.class)
-    @JoinColumn(name = "equipe_id")
-    private Equipe equipep;
+    @JoinColumn(name = "equipeproject_id")
+    private Equipe equipeproject;
     private String description;
-//    @OneToMany(mappedBy = "taches")
-//    private List<Tache> taches= new ArrayList<Tache>();
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tache> taches= new ArrayList<Tache>();
 
     public Long getId() {
         return id;
@@ -62,10 +62,10 @@ public class Project {
     }
 
     public Equipe getEquipe() {
-        return equipep;
+        return equipeproject;
     }
 
     public void setEquipe(Equipe equipe) {
-        this.equipep = equipe;
+        this.equipeproject = equipe;
     }
 }

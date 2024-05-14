@@ -29,8 +29,8 @@ public class Tache {
     @ManyToOne
     @JoinColumn(name = "membre_equipe_id")
     private User membreEquipe;
-//    @OneToMany(mappedBy = "commentaires")
-//    private List<Commentaire> commentaires = new ArrayList<>();
+    @OneToMany(mappedBy = "tache", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Commentaire> commentaires = new ArrayList<>();
 
 
 

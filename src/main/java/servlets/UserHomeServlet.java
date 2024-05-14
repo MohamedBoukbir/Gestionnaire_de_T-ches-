@@ -1,27 +1,36 @@
 package servlets;
+import Dao.ICommentaireDao;
 import Dao.IEquipeDao;
 import Dao.UserDao;
+import Util.Status;
+import entity.Commentaire;
 import entity.Tache;
 import entity.User;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import services.CommentaireDaoImpl;
 import services.EquipeDaoImpl;
 import services.TacheDaoImpl;
 import services.UserDaoImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "UserHomeServlet", value = "/UserHomeServlet")
 public class UserHomeServlet  extends HttpServlet  {
     public UserDao userDao ;
     public TacheDaoImpl taskDao;
+    public ICommentaireDao iCommentaireDao;
     @Override
     public void init() throws ServletException {
         userDao=new UserDaoImpl();
         taskDao=new TacheDaoImpl();
+        iCommentaireDao=new CommentaireDaoImpl();
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,8 +39,9 @@ public class UserHomeServlet  extends HttpServlet  {
         String at = request.getParameter("action") != null ? request.getParameter("action") : "none";
         System.out.println("A:"+at);
         switch (at) {
-            case "/":
-                showHome(request, response);
+            case "updateStatusTache":
+                System.out.println("updateStatusTache swich");
+                updateStatusTache(request,response);
                 break;
             case "listTache":
                 try {
@@ -57,45 +67,126 @@ public class UserHomeServlet  extends HttpServlet  {
                     e.printStackTrace();
                 }
                 break;
+            case "commentlist":
+                try {
+                    System.out.println("commentlist swich");
+                    commentlist(request,response);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            case "addcommentaire":
+                try {
+                    System.out.println("addcommentaire swich");
+                    addcommentaire(request,response);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            case "deletecommentaire":
+                try {
+                    System.out.println("deletecommentaire swich");
+                    deletecommentaire(request,response);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
             default:
 
-                this.showHome(request, response);
+                this.listTache(request, response);
                 break;
         }
     }
 
 
-    private void showHome(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("list tache");
-        List<Tache> tacheList = taskDao.findAll();
-//        int tacheListCount = tacheList.size();
-//        request.setAttribute("tacheListCount", tacheListCount);
-        request.setAttribute("tacheList", tacheList);
-        for(Tache tache : tacheList){
-            System.out.println(tache.getTitretache());
+
+    private void listTache(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            // Récupérer l'objet User de la session
+            User user = (User) session.getAttribute("profile");
+
+            List<Tache> tacheList = user.getTaches();
+// Créer trois listes pour chaque statut
+            List<Tache> todoList = new ArrayList<>();
+            List<Tache> inProgressList = new ArrayList<>();
+            List<Tache> completedList = new ArrayList<>();
+
+            // Parcourir la liste des tâches et les répartir en fonction de leur statut
+            for (Tache tache : tacheList) {
+                if (tache.getStatus() == Status.TODO) {
+                    todoList.add(tache);
+                } else if (tache.getStatus() == Status.IN_PROGRESS) {
+                    inProgressList.add(tache);
+                } else if (tache.getStatus() == Status.COMPLETED) {
+                    completedList.add(tache);
+                }
+            }
+
+            // Envoyer les listes appropriées à la vue
+            request.setAttribute("todoList", todoList);
+            request.setAttribute("inProgressList", inProgressList);
+            request.setAttribute("completedList", completedList);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/User/listTache.jsp");
+            requestDispatcher.forward(request,response);
+
+
         }
-        System.out.println("after boucle");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/User/listTache.jsp");
-        requestDispatcher.forward(request,response);
+
+
 
     }
-    private void listTache(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("list tache");
-        List<Tache> tacheList = taskDao.findAll();
-        int tacheListCount = tacheList.size();
-        request.setAttribute("tacheListCount", tacheListCount);
-        request.setAttribute("tacheList", tacheList);
-
-
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/User/listTache.jsp");
-        requestDispatcher.forward(request,response);
-
+    private void updateStatusTache(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        String status = request.getParameter("status");
+        Tache tache = taskDao.findById(id);
+        if (status.equals(Status.COMPLETED.toString())) {
+            tache.setStatus(Status.COMPLETED);
+        } else if (status.equals(Status.IN_PROGRESS.toString())) {
+            tache.setStatus(Status.IN_PROGRESS);
+        } else {
+            tache.setStatus(Status.TODO);
+        }
+        taskDao.update(tache);
+        listTache(request, response);
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
+    private void commentlist(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        List<Commentaire> commentaires =iCommentaireDao.findCommentsByTaskId(id);
+        request.setAttribute("commentaires", commentaires);
+        request.setAttribute("id", id);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/User/comment.jsp");
+        requestDispatcher.forward(request,response);
+    }
+    private void addcommentaire(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
 
+        if (session != null) {
+            // Récupérer l'objet User de la session
+            User user = (User) session.getAttribute("profile");
+            String comment = request.getParameter("comment");
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String datep = currentDate.format(formatter);
+            System.out.println("after date");
+            Commentaire commentaire=new Commentaire(comment,datep);
+            System.out.println("avent id");
+            Long id = Long.parseLong(request.getParameter("id"));
+            System.out.println("after id");
+            Tache tache = taskDao.findById(id);
+            commentaire.setTache(tache);
+            commentaire.setUser(user);
+            iCommentaireDao.save(commentaire);
+            commentlist(request, response);
+        }
+
+
+    }
     private void profileUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
@@ -146,5 +237,11 @@ public class UserHomeServlet  extends HttpServlet  {
             request.setAttribute("error", error);
         }
         profileUser(request, response);
+    }
+
+    private void deletecommentaire(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        iCommentaireDao.deleteById(id);
+        response.sendRedirect("UserHomeServlet");
     }
 }

@@ -1,20 +1,15 @@
 
  package servlets;
+import Dao.ICommentaireDao;
 import Dao.UserDao;
 import Exeptions.UserEmalExistsExeption;
 import Util.Priority;
 import Util.Status;
-import entity.Equipe;
-import entity.Project;
-import entity.Tache;
-import entity.User;
+import entity.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import services.EquipeDaoImpl;
-import services.ProjectDaoImpl;
-import services.TacheDaoImpl;
-import services.UserDaoImpl;
+import services.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -28,6 +23,7 @@ public class GestionnerHomeServlet extends HttpServlet {
     EquipeDaoImpl equipeDao;
     UserDaoImpl userDao;
     TacheDaoImpl taskDao;
+    public ICommentaireDao iCommentaireDao;
 
     @Override
     public void init() throws ServletException {
@@ -35,6 +31,7 @@ public class GestionnerHomeServlet extends HttpServlet {
         userDao = new UserDaoImpl();
         equipeDao=new EquipeDaoImpl();
         taskDao=new TacheDaoImpl();
+        iCommentaireDao=new CommentaireDaoImpl();
     }
 
     @Override
@@ -134,7 +131,30 @@ public class GestionnerHomeServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
-
+            case "commentlist":
+                try {
+                    System.out.println("commentlist swich");
+                    commentlist(request,response);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            case "addcommentaire":
+                try {
+                    System.out.println("addcommentaire swich");
+                    addcommentaire(request,response);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            case "deletecommentaire":
+                try {
+                    System.out.println("deletecommentaire swich");
+                    deletecommentaire(request,response);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
             default:
 
                 this.showDashboard(request, response);
@@ -441,6 +461,43 @@ public class GestionnerHomeServlet extends HttpServlet {
         }
     }
 
+    private void commentlist(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        List<Commentaire> commentaires =iCommentaireDao.findCommentsByTaskId(id);
+        request.setAttribute("commentaires", commentaires);
+        request.setAttribute("id", id);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/comment.jsp");
+        requestDispatcher.forward(request,response);
+    }
+    private void addcommentaire(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            // Récupérer l'objet User de la session
+            User user = (User) session.getAttribute("profile");
+            String comment = request.getParameter("comment");
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String datep = currentDate.format(formatter);
+            System.out.println("after date");
+            Commentaire commentaire=new Commentaire(comment,datep);
+            System.out.println("avent id");
+            Long id = Long.parseLong(request.getParameter("id"));
+            System.out.println("after id");
+            Tache tache = taskDao.findById(id);
+            commentaire.setTache(tache);
+            commentaire.setUser(user);
+            iCommentaireDao.save(commentaire);
+            commentlist(request, response);
+        }
+
+
+    }
+    private void deletecommentaire(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        iCommentaireDao.deleteById(id);
+        response.sendRedirect("GestionnerHomeServlet");
+    }
 
 }
 

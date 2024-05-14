@@ -29,6 +29,13 @@ public class TacheDaoImpl implements ITaskDao {
     }
 
     @Override
+    public void update(Tache tache) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(tache);
+        entityManager.getTransaction().commit();
+
+    }
+    @Override
     public List<Tache> findAll() {
         Query query = entityManager.createQuery("select t from Tache t");
         List<Tache> taches = query.getResultList();

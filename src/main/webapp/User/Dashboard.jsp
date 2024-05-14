@@ -285,20 +285,20 @@
                             </div>
                         </div>
                         <ul>
-                            <li class="active">
-                                <a href="#"><img src="img/home.svg" alt="sidebar_img">
+                            <li >
+                                <a href="UserHomeServlet"><img src="img/home.svg" alt="sidebar_img">
                                     <span>Dashboard</span></a>
                             </li>
 
-                                <li class="#">
+<%--                                <li class="#">--%>
 
-                                <a href="#"><img src="img/report.svg"
-                                        alt="sidebar_img"><span> Groups</span></a>
-                            </li>
-                            <li class="#">
-                                <a href="#"><img src="img/employee.svg" alt="sidebar_img">
-                                    <span> Users</span></a>
-                            </li>
+<%--                                <a href="#"><img src="img/report.svg"--%>
+<%--                                        alt="sidebar_img"><span> Groups</span></a>--%>
+<%--                            </li>--%>
+<%--                            <li class="#">--%>
+<%--                                <a href="#"><img src="img/employee.svg" alt="sidebar_img">--%>
+<%--                                    <span> Users</span></a>--%>
+<%--                            </li>--%>
 
 <%--                            <li  class="active">--%>
 <%--                                <a href="#"><img src="img/settings.svg"--%>

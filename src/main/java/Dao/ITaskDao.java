@@ -4,6 +4,7 @@ package Dao;
 
 import entity.Project;
 import entity.Tache;
+import entity.User;
 
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface ITaskDao {
     public Tache findById(Long id);
 
     public List<Tache> findTasksByProjectId(Long projectId);
+    public void update(Tache tache) ;
 }

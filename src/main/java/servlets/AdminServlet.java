@@ -1,7 +1,9 @@
 package servlets;
 import Dao.IEquipeDao;
+import Dao.ITaskDao;
 import Dao.UserDao;
 import entity.Equipe;
+import entity.Tache;
 import entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -125,6 +127,7 @@ public class AdminServlet extends HttpServlet {
         if(userIdParameter != null && !userIdParameter.isEmpty() && !userIdParameter.equals("none") ){
             Long id = Long.parseLong(userIdParameter);
             User user =userDao.findById(id);
+            user.setEquipe(null);
             user.setRole("Gestionner");
             Equipe equipe = new Equipe("equipe"+id,user);
             equipeDao.save(equipe);
@@ -163,8 +166,9 @@ public class AdminServlet extends HttpServlet {
     }
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
+        System.out.println("delete user "+id);
         userDao.deleteById(id);
-        response.sendRedirect("AdminServlet");
+        listUsers(request, response);
     }
     private void enableUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));

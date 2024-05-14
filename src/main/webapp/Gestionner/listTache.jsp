@@ -59,6 +59,7 @@
                               <th >Deadline</th>
                               <th >Priorite</th>
                               <th >Status</th>
+                                <th >Membre</th>
                               <th >Action</th>
                             </tr>
                           </thead>
@@ -70,13 +71,15 @@
                                     <td><c:out value="${tache.deadline}"/></td>
                                     <td><c:out value="${tache.priority}"/></td>
                                     <td><c:out value="${tache.status}"/></td>
-
+                                    <td><c:out value="${tache.membreEquipe.firstname}"/> <c:out value="${tache.membreEquipe.lastname}"/></td>
 <%--                                    <td><c:out value="${tache.projet_id.id}"/></td>--%>
 
                                     <td>
                                         <a type="button" class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteModal${tache.id}">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
+                                        <a href="GestionnerHomeServlet?action=commentlist&id=<c:out value='${tache.id}' />" >
+                                            <i class="fa-solid fa-pen"></i></a>
                                     </td>
                                 </tr>
 

@@ -60,88 +60,168 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${tacheList}" var="tache">
                                 <tr>
+<tr>
+    <td>
+<%--        // to do ///--%>
+        <c:forEach items="${todoList}" var="todo">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> <c:out value="${todo.titretache}" /></h5>
+                        <p class="card-text"> <c:out value="${todo.deadline}" /></p>
+                         <a type="button" class="btn btn-success text-light" data-toggle="modal" data-target="#updateModal${todo.id}">
+                             <i class="fa-solid fa-pen"></i></a>
+                        <a href="UserHomeServlet?action=commentlist&id=<c:out value='${todo.id}' />" >
+                            <i class="fa-solid fa-pen"></i></a>
 
-                                <c:if test="${tache.status == Status.TODO}">
-                                    <td> <c:out value="${tache.titretache}"/> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                </c:if>
-<%--                                    <c:if test="${tache.status == Status.IN_PROGRESS}">--%>
-<%--                                        <td> </td>--%>
-<%--                                        <td> <c:out value="${tache.titretache}"/> </td>--%>
-<%--                                        <td> </td>--%>
-<%--                                    </c:if>--%>
-<%--                                    <c:if test="${tache.status == Status.COMPLETED}">--%>
-<%--                                        <td> </td>--%>
-<%--                                        <td> </td>--%>
-<%--                                        <td> <c:out value="${tache.titretache}"/> </td>--%>
-<%--                                    </c:if>--%>
-                                    <td>
+                    </div>
+                </div>
+            </div>
 
-<%--                                        <a type="button" class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteModal${tache.id}">--%>
-<%--                                            <i class="fa-solid fa-trash"></i>--%>
-<%--                                        </a>--%>
-                                    </td>
-                                </tr>
-                                <%--                            /// delete //--%>
-<%--                                <div class="modal fade" id="deleteModal${tache.id}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">--%>
-<%--                                    <div class="modal-dialog">--%>
-<%--                                        <div class="modal-content">--%>
-<%--                                            <form action="AdminServlet?action=delete&id=<c:out value='${tache.id}' />" method="POST" enctype="multipart/form-data">--%>
+            <%--                            /// delete //--%>
+            <div class="modal fade" id="updateModal${todo.id}" tabindex="-1" role="dialog" aria-labelledby="updateModallabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="UserHomeServlet?action=updateStatusTache&id=<c:out value='${todo.id}' />" method="POST">
 
-<%--                                                <div class="modal-header">--%>
-<%--                                                    <h4 class="modal-title">Supprimer Utilisateur</h4>--%>
-<%--                                                    <a type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-<%--                                                        <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img">--%>
-<%--                                                    </a>--%>
-<%--                                                </div>--%>
-<%--                                                <div class="modal-body">--%>
-<%--                                                    Voulez-vous supprimer l utiliasateur ${tache.titretache}  </b> ?--%>
-<%--                                                </div>--%>
-<%--                                                <div class="modal-footer">--%>
-<%--                                                    <button type="button" class="btn gray btn-outline-secondary"--%>
-<%--                                                            data-dismiss="modal">Anuller</button>--%>
-<%--                                                    <button type="submit"--%>
-<%--                                                            class="btn gray btn-outline-danger">Supprimer</button>--%>
-
-
-<%--                                                </div>--%>
-<%--                                            </form>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-                                <%--     ///  end delete //--%>
-                                <%--         /// enable //--%>
-<%--                                <div class="modal fade" id="enableModal${user.id}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">--%>
-<%--                                    <div class="modal-dialog">--%>
-<%--                                        <div class="modal-content">--%>
-<%--                                            <form action="AdminServlet?action=enable&id=<c:out value='${user.id}' />" method="POST" enctype="multipart/form-data">--%>
-
-<%--                                                <div class="modal-header">--%>
-<%--                                                    <h4 class="modal-title">Activer Utilisateur</h4>--%>
-<%--                                                    <a type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-<%--                                                        <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img">--%>
-<%--                                                    </a>--%>
-<%--                                                </div>--%>
-<%--                                                <div class="modal-body">--%>
-<%--                                                    Voulez-vous activer l utiliasateur ${user.firstname}  </b> ?--%>
-<%--                                                </div>--%>
-<%--                                                <div class="modal-footer">--%>
-<%--                                                    <button type="button" class="btn gray btn-outline-secondary"--%>
-<%--                                                            data-dismiss="modal">Anuller</button>--%>
-<%--                                                    <button type="submit"--%>
-<%--                                                            class="btn gray btn-outline-danger">confirmer</button>--%>
+                            <div class="modal-header">
+                                <h4 class="modal-title">changer le status</h4>
+                                <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img">
+                                </a>
+                            </div>
+                            <div class="modal-body">
+                                Voulez-vous modifier  le status de  ${todo.titretache}  </b> ?
+                            </div>
+                            <label for="user_id" class="form-label">Status</label>
+                            <select class="form-select" style="height: 50px;" name="status" id="status" aria-label="Default select example" required>
+<%--                                <option value="<c:out value='${Status.TODO}' />">TO DO</option>--%>
+                                <option value="<c:out value='${Status.IN_PROGRESS}' />"> IN PROGRESS</option>
+                                <option value="<c:out value='${Status.COMPLETED}' />"> COMPLETED</option>
+                            </select>
+                            <div class="modal-footer">
+                                <button type="button" class="btn gray btn-outline-secondary"
+                                        data-dismiss="modal">Anuller</button>
+                                <button type="submit"
+                                        class="btn gray btn-outline-danger">save</button>
 
 
-<%--                                                </div>--%>
-<%--                                            </form>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-                                <%--     ///  end enable //--%>
-                            </c:forEach>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <%--     ///  end delete //--%>
+        </c:forEach>
+    <%--        // end  to do ///--%>
+    </td>
+    <td>
+        <%--        //   In progress ///--%>
+        <c:forEach items="${inProgressList}" var="inProgress">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> <c:out value="${inProgress.titretache}" /></h5>
+                        <p class="card-text"> <c:out value="${inProgress.deadline}" /></p>
+                        <a type="button" class="btn btn-success text-light" data-toggle="modal" data-target="#updateModal${inProgress.id}">
+                            <i class="fa-solid fa-pen"></i></a>
+                        <a href="UserHomeServlet?action=commentlist&id=<c:out value='${inProgress.id}' />" >
+                            <i class="fa-solid fa-pen"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <%--                            /// delete //--%>
+            <div class="modal fade" id="updateModal${inProgress.id}" tabindex="-1" role="dialog" aria-labelledby="updateModallabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="UserHomeServlet?action=updateStatusTache&id=<c:out value='${inProgress.id}' />" method="POST">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title">changer le status</h4>
+                                <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img">
+                                </a>
+                            </div>
+                            <div class="modal-body">
+                                Voulez-vous modifier  le status de  ${inProgress.titretache}  </b> ?
+                            </div>
+                            <label for="user_id" class="form-label">Status</label>
+                            <select class="form-select" style="height: 50px;" name="status"  aria-label="Default select example" required>
+                                <option value="<c:out value='${Status.TODO}' />">TO DO</option>
+<%--                                <option value="<c:out value='${Status.IN_PROGRESS}' />"> IN PROGRESS</option>--%>
+                                <option value="<c:out value='${Status.COMPLETED}' />"> COMPLETED</option>
+                            </select>
+                            <div class="modal-footer">
+                                <button type="button" class="btn gray btn-outline-secondary"
+                                        data-dismiss="modal">Anuller</button>
+                                <button type="submit"
+                                        class="btn gray btn-outline-danger">save</button>
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <%--     ///  end delete //--%>
+        </c:forEach>
+            <%--        // end  In progress ///--%>
+    </td>
+    <td>
+        <%--        //   completed ///--%>
+        <c:forEach items="${completedList}" var="completed">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> <c:out value="${completed.titretache}" /></h5>
+                        <p class="card-text"> <c:out value="${completed.deadline}" /></p>
+                        <a type="button" class="btn btn-success text-light" data-toggle="modal" data-target="#updateModal${completed.id}">
+                            <i class="fa-solid fa-pen"></i></a>
+                        <a href="UserHomeServlet?action=commentlist&id=<c:out value='${completed.id}' />" >
+                            <i class="fa-solid fa-pen"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <%--                            /// delete //--%>
+            <div class="modal fade" id="updateModal${completed.id}" tabindex="-1" role="dialog" aria-labelledby="updateModallabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="UserHomeServlet?action=updateStatusTache&id=<c:out value='${completed.id}' />" method="POST">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title">changer le status</h4>
+                                <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <img style="width: 25px; height: 25px; margin-top: 10px;" src="img/close.png" alt="sidebar_img">
+                                </a>
+                            </div>
+                            <div class="modal-body">
+                                Voulez-vous modifier  le status de  ${completed.titretache}  </b> ?
+                            </div>
+                            <label for="user_id" class="form-label">Status</label>
+                            <select class="form-select" style="height: 50px;" name="status"  aria-label="Default select example" required>
+                                <option value="<c:out value='${Status.TODO}' />">TO DO</option>
+                                <option value="<c:out value='${Status.IN_PROGRESS}' />"> IN PROGRESS</option>
+<%--                                <option value="<c:out value='${Status.COMPLETED}' />"> COMPLETED</option>--%>
+                            </select>
+                            <div class="modal-footer">
+                                <button type="button" class="btn gray btn-outline-secondary"
+                                        data-dismiss="modal">Anuller</button>
+                                <button type="submit"
+                                        class="btn gray btn-outline-danger">save</button>
+
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <%--     ///  end delete //--%>
+        </c:forEach>
+            <%--        // end  completed ///--%>
+
                             </tbody>
                         </table>
                     </div>

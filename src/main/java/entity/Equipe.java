@@ -11,13 +11,15 @@ public class Equipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id ;
     private String name;
-    @OneToMany(mappedBy = "equipe")
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> userList = new ArrayList<>();
-    @OneToMany(mappedBy = "equipep")
+    @OneToMany(mappedBy = "equipeproject", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Project> projectList = new ArrayList<>();
-    @OneToOne
-    @JoinColumn(name = "chef_equipe_id")
-    private User chefEquipe;
+//    @OneToOne
+//    @JoinColumn(name = "chef_equipe_id")
+//    private User chefEquipe;
+@OneToOne
+private User chefEquipe;
     public Equipe(String name, User chefEquipe) {
 
         this.name = name;
@@ -94,6 +96,11 @@ public class Equipe {
         System.out.println("L'utilisateur à retirer n'est pas présent dans l'équipe.");
     }
 
-
+    @PreRemove
+    private void removeChefEquipe() {
+        if (chefEquipe != null) {
+            chefEquipe.setEquipeEnCharge(null);
+        }
+    }
 
 }
