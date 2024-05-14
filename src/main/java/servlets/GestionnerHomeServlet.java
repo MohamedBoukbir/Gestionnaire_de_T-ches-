@@ -112,10 +112,10 @@ public class GestionnerHomeServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
-            case "profile":
+            case "profileshow":
                 try {
                     System.out.println("profile swich");
-                    profile(request,response);
+                    profileshow(request,response);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -368,9 +368,9 @@ public class GestionnerHomeServlet extends HttpServlet {
             String error = "Session introuvable.";
             request.setAttribute("error", error);
         }
-        profile(request, response);
+        profileshow(request, response);
     }
-    private void profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void profileshow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // Récupérer l'objet User de la session

@@ -53,13 +53,9 @@
                         <table  id="example" class="table  spacethtd custom-table no-footer" >
                           <thead>
                             <tr>
-                              <th >Nom</th>
-                              <th >Prenom</th>
-                              <th >Classe</th>
-                              <th >Civilite</th>
-                              <th >Level</th>
-                              <th >Email</th>
-                              <th >Action</th>
+                              <th >TO DO</th>
+                              <th >IN PROGRESS</th>
+                              <th >COMPLETED</th>
                             </tr>
                           </thead>
                           <tbody>
