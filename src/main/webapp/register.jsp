@@ -19,6 +19,14 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- Datepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+     <style>
+         /* Modifier la largeur du calendrier */
+         .datepicker {
+             color: #272b41;
+             border-radius: 10px; /
+         }
+
+     </style>
 	</head>
   <body class="img js-fullheight" style="background-image: url(images/kkkkkk.jpg)">      <script>
               $(function () {
@@ -66,36 +74,70 @@
 					<div class="login-wrap p-0">
 		      	<form method="POST" action="RegisterServlet" class="signin-form">
                     <div class="form-group">
+
 		      			<input type="text" name="fisrtname" class="form-control" placeholder="Prenom" required>
                     </div>
                       <div class="form-group">
                         <input type="text" name="lastname" class="form-control" placeholder="Nom" required>
 
+
+		      			<input type="text" name="firstname" class="form-control" placeholder="Fisrt Name" required>
+                        <% if(request.getAttribute("errorfirstname")!=null){ String errorfirstname = request.getAttribute("errorfirstname").toString();%>
+                        <div  style="color : red"><%=errorfirstname%></div>
+                        <% }%>
+                    </div>
+                      <div class="form-group">
+                        <input type="text" name="lastname" class="form-control" placeholder="Last Name" required>
+                          <% if(request.getAttribute("errorlastname")!=null){ String errorlastname = request.getAttribute("errorlastname").toString();%>
+                          <div  style="color : red"><%=errorlastname%></div>
+                          <% }%>
+
                     </div>
                     <div class="form-group">
                     <div class="datepicker date input-group">
                         <input type="text" name="datebirth" placeholder="Date naissance" class="form-control" id="fecha1">
-                        <div class="input-group-append">
-                       <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        <div class="input-group-append" >
+                       <span class="input-group-text" style="color: #f70018"><i class="fa fa-calendar"></i></span>
                       </div>
                  </div>
+                        <% if(request.getAttribute("errordatebirth")!=null){ String errordatebirth = request.getAttribute("errordatebirth").toString();%>
+                        <div  style="color : red"><%=errordatebirth%></div>
+                        <% }%>
                     </div>
                     <div class="form-group">
+
                         <input type="tel" name="phonenumber" class="form-control" placeholder="Num telephone" required>
+
+                        <input type="tel" name="phonenumber" class="form-control" placeholder="Phone Number" required>
+                        <% if(request.getAttribute("errorphonenumber")!=null){ String errorphonenumber = request.getAttribute("errorphonenumber").toString();%>
+                        <div  style="color : red"><%=errorphonenumber%></div>
+                        <% }%>
                     </div>
                     <div class="form-group">
                     <input type="tel" name="proffesion" class="form-control" placeholder="Profession" required>
+                        <% if(request.getAttribute("errorprofession")!=null){ String errorprofession = request.getAttribute("errorprofession").toString();%>
+                        <div  style="color : red"><%=errorprofession%></div>
+                        <% }%>
                      </div>
                       <div class="form-group">
+
                         <input type="text" name="email" class="form-control" placeholder="E-mail" required>
                          <% if(request.getAttribute("error")!=null){ %>
                                      <div  style="color : red">Email Already exist</div>
                          <% }%>
+
+                        <input type="email" name="email" class="form-control" placeholder="E-mail Sup de vinci" required>
+                          <% if(request.getAttribute("erroremail")!=null){ String erroremail = request.getAttribute("erroremail").toString();%>
+                          <div  style="color : red"><%=erroremail%></div>
+                          <% }%>
+
                     </div>
 	            <div class="form-group">
 	              <input id="password-field" name="password" type="password" class="form-control" placeholder="Mot de passe" required>
 	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-
+                    <% if(request.getAttribute("errorpassword")!=null){ String errorpassword = request.getAttribute("errorpassword").toString();%>
+                    <div  style="color : red"><%=errorpassword%></div>
+                    <% }%>
                 </div>
 	            <div class="form-group">
 	            	<button type="submit" class="form-control btn btn-primary submit px-3" style="font-weight: bold;" >S'inscrire</button>

@@ -8,6 +8,8 @@ import java.io.IOException;
 public class LogOutServlet extends HttpServlet   {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("tesssssssssssssssssssssst ");
+
         System.out.println("Session before invalidate: "+ request.getSession(false));
         // Invalidate the session.
         request.getSession(false).invalidate();

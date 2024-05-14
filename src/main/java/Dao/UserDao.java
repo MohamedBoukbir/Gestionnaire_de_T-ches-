@@ -13,5 +13,6 @@ public interface UserDao {
     public void enableUser(Long id);
     public List<User> findGestionners();
     public List<User> findUsers();
+    public User findbyEmail(String email);
 
 }

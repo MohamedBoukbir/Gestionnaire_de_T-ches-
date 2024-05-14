@@ -74,13 +74,11 @@
 
   <div class="header">
 
-            <div class="header-left">
-                <a href="#" class="logo">
-                    Gestion de projet
-                </a>
-                <a href="#" class="logo logo-small">
-                    <span style="font-size: 10px;"> GestionP </span>
-                </a>
+            <div class="header-left" >
+
+
+                <a class="" style="font-size: 19px;margin-left: 5px;font-family: 'Gistesy', sans-serif;color: #dcb5eb" href="#">ProdChef</a>
+
                 <a href="javascript:void(0);" id="toggle_btn">
                     <span class="bar-icon">
                         <span></span>
@@ -93,12 +91,12 @@
 
 
 
-            <div class="top-nav-search">
+         <%--   <div class="top-nav-search">
                 <form>
                     <input type="text" class="form-control" placeholder="">
                     <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                 </form>
-            </div>
+            </div>--%>
 
 
             <a class="mobile_btn" id="mobile_btn">
@@ -223,22 +221,22 @@
                         <span>Mohamed</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"><i data-feather="user" class="mr-1"></i>
-                            Profile</a>
-                        <a class="dropdown-item" href="#"><i data-feather="settings" class="mr-1"></i>
-                            Settings</a>
+                        <button type="submit" class="btn btn-link" style="margin-left: 0px">
+                            <a href="AdminServlet?action=profile">
+                                <i style="color: #E0BE81; margin-right: 5px;" class="fa-solid fa-id-badge"></i>
+                                <span style="color: #052659; font-weight: bold">Profile</span>
+                            </a>
+                        </button>
 
-                         <form   id="logout-form" action="LogOutServlet">
-                                                           <button type="submit" class="btn btn-link"  >
-                                                            <a href="#" >
-                                                                 <i data-feather="log-out" class="mr-1"></i>
-                                                                    <span>Logout</span>
 
-                                                                     </a>
-
-                                                             </button>
-
-                                                           </form>
+                        <form   id="logout-form2" action="LogOutServlet">
+                            <button type="submit" class="btn btn-link"   style="margin-left: 0px" >
+                                <a href="#" >
+                                    <i class="fa-solid fa-link-slash" data-feather="log-out"  style="color: #E0BE81 ; " ></i>
+                                    <span style="color: #052659 ; font-weight: bold" >  Deconnecte</span>
+                                </a>
+                            </button>
+                        </form>
                     </div>
                 </li>
 
@@ -251,7 +249,8 @@
                     <a class="dropdown-item" href="#">Settings</a>
                     <a class="dropdown-item" href="#" href="#" href="#"
                         >Logout</a>
-                    <form id="logout-form" action="LogOutServlet" method="POST" class="d-none">
+                    <form id="logout-form1" action="LogOutServlet" method="POST" class="d-none">
+
                     </form>
                 </div>
             </div>
@@ -275,19 +274,19 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="sidebar-input">
+                            <%--<div class="sidebar-input">
                                 <div class="top-nav-search">
                                     <form>
                                         <input type="text" class="form-control" placeholder="Search here">
                                         <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                                     </form>
                                 </div>
-                            </div>
+                            </div>--%>
                         </div>
                         <ul>
                            <li class=""> <%-- active--%>
-                                <a href="AdminServlet?action=showDashboard"><img src="img/home.svg" alt="sidebar_img">
-                                    <span>Dashboard</span></a>
+                                <a href="AdminServlet?action=showDashboard"><i style="color: #E0BE81" class="fa-solid fa-gauge-high"></i>
+                                    <span style="color: #052659">Dashboard</span></a>
                             </li>
 
 <%--                                <li class="#">--%>
@@ -296,8 +295,8 @@
 <%--                                        alt="sidebar_img"><span> Groups</span></a>--%>
 <%--                            </li>--%>
                             <li class="#">
-                                <a href="AdminServlet?action=listUsers"><img src="img/employee.svg" alt="sidebar_img">
-                                    <span> Users</span></a>
+                                <a href="AdminServlet?action=listUsers"><i class="fa-solid fa-users" style="color: #E0BE81"></i>
+                                    <span style="color: #052659"> Utilisateurs</span></a>
                             </li>
 
 <%--                            <li  class="active">--%>
@@ -305,25 +304,22 @@
 <%--                                        alt="sidebar_img"><span>Settings</span></a>--%>
 <%--                            </li>--%>
                             <li  class="#">
-                                <a href="AdminServlet?action=profile"><img src="img/profile.svg" alt="sidebar_img">
-                                    <span>Profile</span></a>
+                                <a href="AdminServlet?action=profile"><i  style="color: #E0BE81" class="fa-solid fa-id-badge"></i>
+                                    <span style="color: #052659">Profile</span></a>
                             </li>
 
                             <li>
                                    <form   id="logout-form" action="LogOutServlet">
-                                   <button type="submit" class="btn btn-link"  >
+                                   <button type="submit" class="btn btn-link"   style="margin-left: 0px" >
                                     <a href="#" >
-                                         <img src="img/logout.svg" alt="sidebar_img">
-                                            <span>Log out</span>
-
+                                        <i class="fa-solid fa-link-slash" data-feather="log-out"  style="color: #E0BE81 ; " ></i>
+                                            <span style="color: #052659 ; font-weight: bold" >  Deconnecte</span>
                                              </a>
-
                                      </button>
-
                                    </form>
-
-
                             </li>
+
+
                         </ul>
 
                     </div>
