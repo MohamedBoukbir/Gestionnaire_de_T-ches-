@@ -32,7 +32,7 @@
                   <div class="col-xl-12 col-sm-12 col-12 mb-4">
                     <div class="row">
                       <div class="col-xl-10 col-sm-8 col-12">
-                        <label class="employee_count">0   Users</label>
+                        <label class="employee_count">${allTachesCount}    Taches</label>
                       </div>
                       <div class="col-xl-1 col-sm-2 col-12">
                         <a href="#" class="btn-view"
@@ -56,6 +56,9 @@
                             <tr>
                               <th >Titre tache</th>
                               <th >Date affectation</th>
+                              <th >Deadline</th>
+                              <th >Priorite</th>
+                              <th >Status</th>
                               <th >Action</th>
                             </tr>
                           </thead>
@@ -64,6 +67,10 @@
                                 <tr>
                                     <td> <c:out value="${tache.titretache}"/> </td>
                                     <td><c:out value="${tache.dateaffectation}"/></td>
+                                    <td><c:out value="${tache.deadline}"/></td>
+                                    <td><c:out value="${tache.priority}"/></td>
+                                    <td><c:out value="${tache.status}"/></td>
+
 <%--                                    <td><c:out value="${tache.projet_id.id}"/></td>--%>
 
                                     <td>
@@ -151,8 +158,41 @@
                                  <%--                             </div>--%>
                              <div class="form-group">
                                  <label for="dateaffectation" class="col-form-label">Date affectation :</label>
-                                 <input id="dateaffectation" name="dateaffectation" class="form-control" value="${dateaffectation}" readonly />
+                                 <input id="dateaffectation" name="dateaffectation" class="form-control" value="<%= request.getAttribute("dateaffectation") %>" readonly />
                              </div>
+                             <%--  Deadline--%>
+                             <div class="form-group">
+                                 <label for="deadline">Deadline</label>
+                                 <div class="datepicker date input-group">
+                                     <input type="text" name="deadline" placeholder="Deadline" class="form-control" id="deadline" style="padding-right: 60px;"> <!-- Augmenter le padding-right pour l'icône -->
+                                     <span class="input-group-append" style="position: absolute; right: 5px; top: 0; bottom: 0; margin: auto; margin-right: 5px;"> <!-- Ajuster la position de l'icône -->
+            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+        </span>
+                                 </div>
+                             </div>
+
+
+                         <%--  Priority--%>
+                                         <div class="form-group">
+                                             <label>Task Priority</label>
+                                             <div class="custom-control custom-radio custom-control-inline">
+                                                 <input type="radio" id="customRadioInline11" value="LOW" name="priority" class="custom-control-input" checked="">
+                                                 <label class="custom-control-label" for="customRadioInline11">Low</label>
+                                             </div>
+                                             <div class="custom-control custom-radio custom-control-inline">
+                                                 <input type="radio" id="customRadioInline2" value="HEIGH" name="priority" class="custom-control-input">
+                                                 <label class="custom-control-label" for="customRadioInline2">Heigh</label>
+                                             </div>
+                                             <div class="custom-control custom-radio custom-control-inline">
+                                                 <input type="radio" id="customRadioInline3" value="MEDIUM" name="priority" class="custom-control-input">
+                                                 <label class="custom-control-label" for="customRadioInline3">Medium</label>
+                                             </div>
+
+                                             <div class="custom-control custom-radio custom-control-inline">
+                                                 <input type="radio" id="customRadioInline4" value="CRITICAL" name="priority" class="custom-control-input">
+                                                 <label class="custom-control-label" for="customRadioInline4">Critical</label>
+                                             </div>
+                                         </div>
 
                              <div class="form-group">
                              <label for="membreEquipeId">Membre de l'équipe :</label>
@@ -170,7 +210,7 @@
                              </div>
                          </div>
                      </div>
-                     </div> </form>
+                         </div> </div></form>
              </div>
          </div>
      </div>
