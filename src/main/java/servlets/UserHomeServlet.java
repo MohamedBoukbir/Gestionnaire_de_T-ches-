@@ -66,20 +66,28 @@ public class UserHomeServlet  extends HttpServlet  {
 
 
     private void showHome(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("list tache");
+        List<Tache> tacheList = taskDao.findAll();
+//        int tacheListCount = tacheList.size();
+//        request.setAttribute("tacheListCount", tacheListCount);
+        request.setAttribute("tacheList", tacheList);
+        for(Tache tache : tacheList){
+            System.out.println(tache.getTitretache());
+        }
+        System.out.println("after boucle");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/User/listTache.jsp");
         requestDispatcher.forward(request,response);
+
     }
     private void listTache(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         System.out.println("list tache");
-//        List<Tache> tacheList = taskDao.findAllTask();
-        List<User> allusers = userDao.findAll();
-        List<User> users = userDao.findUsers();
-        int allUsersCount = allusers.size();
-        request.setAttribute("allUsersCount", allUsersCount);
-        request.setAttribute("allusers", allusers);
+        List<Tache> tacheList = taskDao.findAll();
+        int tacheListCount = tacheList.size();
+        request.setAttribute("tacheListCount", tacheListCount);
+        request.setAttribute("tacheList", tacheList);
 
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Admin/listeUsers.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/User/listTache.jsp");
         requestDispatcher.forward(request,response);
 
     }
