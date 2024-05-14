@@ -68,10 +68,20 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
-
 <body>
+<script>
+    $(function () {
+        $('.datepicker').datepicker({
+            language: "es",
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+    });
 
+</script>
 <div class="header">
 
     <div class="header-left">

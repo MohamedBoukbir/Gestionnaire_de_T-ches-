@@ -2,6 +2,8 @@
  package servlets;
 import Dao.UserDao;
 import Exeptions.UserEmalExistsExeption;
+import Util.Priority;
+import Util.Status;
 import entity.Equipe;
 import entity.Project;
 import entity.Tache;
@@ -39,7 +41,11 @@ public class GestionnerHomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("GestionnerHomeServlet");
         //request.getRequestDispatcher("Home.jsp").forward(request,response);
-
+        // Génération de la date actuelle
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String dateaffectation = currentDate.format(formatter);
+        request.setAttribute("dateaffectation", dateaffectation);
         String action = request.getServletPath();
         String at = request.getParameter("action") != null ? request.getParameter("action") : "none";
         System.out.println(action);
@@ -168,7 +174,7 @@ public class GestionnerHomeServlet extends HttpServlet {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String datep = currentDate.format(formatter);
         request.setAttribute("datep", datep);
 
@@ -285,10 +291,14 @@ public class GestionnerHomeServlet extends HttpServlet {
         String projectIdStr = request.getParameter("projectId");
         String titretache = request.getParameter("titretache");
         LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String dateaffectation = currentDate.format(formatter);
         request.setAttribute("dateaffectation", dateaffectation);
-
+        String inputDate =request.getParameter("deadline");
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate deadline = LocalDate.parse(inputDate, parser);
+        Status status = Status.TODO;
+        Priority priority =Priority.valueOf(request.getParameter("priority"));
         String membreEquipeIdStr = request.getParameter("membreEquipeId"); // Obtenir l'ID du membre de l'équipe depuis la requête
 
         if (projectIdStr != null && !projectIdStr.isEmpty() && titretache != null && !titretache.isEmpty() && membreEquipeIdStr != null && !membreEquipeIdStr.isEmpty()) {
@@ -301,7 +311,7 @@ public class GestionnerHomeServlet extends HttpServlet {
                 User membreEquipe = userDao.findById(membreEquipeId);
 
                 if (project != null && membreEquipe != null) {
-                    Tache task = new Tache(titretache, dateaffectation);
+                    Tache task = new Tache(titretache,dateaffectation,deadline,priority,status);
                     task.setProject(project);
                     task.setMembreEquipe(membreEquipe);
                     taskDao.save(task);
@@ -321,6 +331,7 @@ public class GestionnerHomeServlet extends HttpServlet {
         List<Project> projects = projectDao.findAll();
         // Passer la liste des projets comme un attribut de requête
         request.setAttribute("projects", projects);
+
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("profile");
         Equipe equipe = user.getEquipeEnCharge();
@@ -329,6 +340,9 @@ public class GestionnerHomeServlet extends HttpServlet {
         // Stocker la liste des membres de l'équipe comme un attribut de la requête
         request.setAttribute("membresEquipe", membresEquipe);
         List<Tache> alltache = taskDao.findAll();
+        int allTachesCount = alltache.size();
+        request.setAttribute("allTachesCount", allTachesCount);
+
         request.setAttribute("alltache", alltache);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listTache.jsp");
         requestDispatcher.forward(request, response);

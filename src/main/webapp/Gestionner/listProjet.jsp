@@ -127,7 +127,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label for="datep" class="col-form-label">Date affectation :</label>
-                                        <input id="datep" name="datep" class="form-control" value="${datep}" readonly />
+                                        <input id="datep" name="datep" class="form-control" value="<%= request.getAttribute("dateaffectation") %>" readonly />
                                     </div>
                                 </div>
                                 <label for="description" class="col-form-label" >Description:</label>

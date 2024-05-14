@@ -61,9 +61,12 @@ public class Tache {
     public Tache() {
     }
 
-    public Tache(String titretache, String dateaffectation) {
+    public Tache(String titretache, String dateaffectation, LocalDate deadline, Priority priority, Status status) {
         this.titretache = titretache;
         this.dateaffectation = dateaffectation;
+        this.deadline = deadline;
+        this.priority = priority;
+        this.status = status;
     }
 
     public String getTitretache() {
@@ -80,5 +83,29 @@ public class Tache {
 
     public void setDateaffectation(String dateaffectation) {
         this.dateaffectation = dateaffectation;
+    }
+
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
