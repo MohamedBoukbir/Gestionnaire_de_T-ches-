@@ -308,7 +308,7 @@
                     <%--                                        alt="sidebar_img"><span>Settings</span></a>--%>
                     <%--                            </li>--%>
                     <li  class="#">
-                        <a href="GestionnerHomeServlet?action=profile"><img src="img/profile.svg" alt="sidebar_img">
+                        <a href="GestionnerHomeServlet?action=profileshow"><img src="img/profile.svg" alt="sidebar_img">
                             <span>Profile</span></a>
                     </li>
 

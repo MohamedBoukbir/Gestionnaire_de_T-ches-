@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="Util.UserStatus" %>
 <%@ page isELIgnored="false"%>
-<%@ include file="/Admin/Dashboard.jsp" %>
+<%@ include file="/Gestionner/Dashboard.jsp" %>
 <div class="page-wrapper">
     <div class="content container-fluid">
         <form   method="POST" action="GestionnerHomeServlet?action=profileGestionner">

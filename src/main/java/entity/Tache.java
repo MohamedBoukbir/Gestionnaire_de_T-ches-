@@ -1,7 +1,10 @@
 package entity;
 
+import Util.Priority;
+import Util.Status;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +15,22 @@ public class Tache {
     private int id;
     private String titretache;
     private String dateaffectation;
+    @Temporal(TemporalType.DATE)
+    private LocalDate deadline;
+    @Column(columnDefinition = "ENUM('LOW','HEIGH','MEDIUM','CRITICAL')")
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
+    @Column(columnDefinition = "ENUM('TODO','IN_PROGRESS','COMPLETED')")
+    @Enumerated(EnumType.STRING)
+    private Status status;
     @ManyToOne(targetEntity = Project.class)
     @JoinColumn(name = "projet_id")
     private Project project;
     @ManyToOne
     @JoinColumn(name = "membre_equipe_id")
     private User membreEquipe;
-    @OneToMany(mappedBy = "commentaires")
-    private List<Commentaire> commentaires = new ArrayList<>();
+//    @OneToMany(mappedBy = "commentaires")
+//    private List<Commentaire> commentaires = new ArrayList<>();
 
 
 
