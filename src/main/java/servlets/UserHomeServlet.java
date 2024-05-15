@@ -149,6 +149,20 @@ public class UserHomeServlet  extends HttpServlet  {
             tache.setStatus(Status.TODO);
         }
         taskDao.update(tache);
+        // Mettre à jour la liste des tâches dans la session
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute("profile");
+            List<Tache> tacheList = user.getTaches();
+            for (Tache t : tacheList) {
+                if (t.getId() == id) {
+                    t.setStatus(tache.getStatus());
+                    break;
+                }
+            }
+            // Mettre à jour la session avec la nouvelle liste de tâches
+            session.setAttribute("profile", user);
+        }
         listTache(request, response);
     }
     @Override
