@@ -25,7 +25,7 @@ public class JpaCrudExmeple {
         user.setRole("Admin");
         user.setEmail("admin@gmail.com");
         user.setPassword("test12345");
-        user.setUserStatus(UserStatus.DISABLED);
+        user.setUserStatus(UserStatus.ENABLED);
         entityManager.persist(user);
         entityManager.getTransaction().commit();
     }

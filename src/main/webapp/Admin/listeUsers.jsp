@@ -209,7 +209,7 @@
     }
 
 </style>--%>
-<div class="page-wrapper">
+che<div class="page-wrapper">
     <div class="content container-fluid">
         <div class="row">
             <div class="col-xl-12 col-sm-12 col-12" >
@@ -231,7 +231,7 @@
                     <div class=" d-flex justify-content-end">
                         <a  href="#" data-toggle="modal" data-target="#AddModal" >
                             <button type="submit" class=""
-                                    style="font-weight: bold; border-radius:12px;width: 140px;height: 50px; color:#E0BE81; background-color: #344E6D ; border-color: #344E6D"><i data-feather="plus"></i>Gestionnaire</button>
+                                    style="font-weight: bold; border-radius:12px;width: 140px;height: 50px; color:#E0BE81; background-color: #344E6D ; border-color: #344E6D"><i style=" color:#E0BE81" data-feather="plus" class="fa-solid fa-plus"></i>  Gestionnaire</button>
                         </a>
                     </div>
 
@@ -250,7 +250,7 @@
                                         <select class  ="" name="state" id="maxRows" style="height: 45px">
 
 
-                                            <option value="1">5</option>
+                                            <option value="5">5</option>
                                             <option value="10">10</option>
                                             <option value="20">20</option>
                                             <option value="50">50</option>
@@ -457,7 +457,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="AdminServlet?action=enable&id=<c:out value='${user.id}' />" method="POST" enctype="multipart/form-data" class="modal-body">
+            <form action="AdminServlet?action=addGestionner&id=<c:out value='${user.id}' />" method="POST"  class="modal-body">
                 <div class="form-group mb-3" >
                     <select class="form-select" style="height: 45px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  " name="user_id" id="user_id" aria-label="Default select example" >
                         <option value="" style="height: 45px;width: 260px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  " >Definir un utilisateur</option>
@@ -472,7 +472,8 @@
 
                         <%=error%></div>
                         <% }%>
-
+<br>
+                    <br>
                     <div class=" d-flex justify-content-end">
                         <button type="submit" class=""
                                 style="font-weight: bold; border-radius:12px;width: 140px;height: 50px; color:#E0BE81; background-color: #344E6D ; border-color: #344E6D">Sauvegarder</button>
@@ -481,7 +482,10 @@
             </form>
         </div>
     </div>
-</div><script>
+</div>
+
+
+<script>
     getPagination('#table-id');
     $('#maxRows').trigger('change');
 

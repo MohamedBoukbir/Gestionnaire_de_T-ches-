@@ -59,6 +59,10 @@
    #example thead th {
       text-align: center;
    }
+
+   .v:hover{
+       background-color: transparent;
+   }
    </style>
 
 
@@ -77,15 +81,17 @@
             <div class="header-left" >
 
 
-                <a class="" style="font-size: 19px;margin-left: 5px;font-family: 'Gistesy', sans-serif;color: #dcb5eb" href="#">ProdChef</a>
+                <a class="v" >
+                    <img src="images/logo1.png"  style="height: 100%;">
+                </a>
 
-                <a href="javascript:void(0);" id="toggle_btn">
+           <%--     <a href="javascript:void(0);" id="toggle_btn">
                     <span class="bar-icon">
                         <span></span>
                         <span></span>
                         <span></span>
                     </span>
-                </a>
+                </a>--%>
             </div>
 
 

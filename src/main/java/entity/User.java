@@ -5,10 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class User {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id ;
@@ -27,12 +28,26 @@ public class User {
     @ManyToOne(targetEntity = Equipe.class)
     @JoinColumn(name = "equipe_id")
     private Equipe equipe;
+//    @ManyToOne(targetEntity = Equipe.class)
+//    @JoinColumn(name = "equipe_en_charge_id")
+//    private Equipe equipeEnCharge;
+@OneToOne(mappedBy = "chefEquipe", cascade = CascadeType.ALL)
+private Equipe equipeEnCharge;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Commentaire> commentaires = new ArrayList<>();
+    @OneToMany(mappedBy = "membreEquipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tache> taches;
 
-    @ManyToOne(targetEntity = Equipe.class)
-    @JoinColumn(name = "equipe_en_charge_id")
-    private Equipe equipeEnCharge;
 
-    public User(String firstname, String lastname,LocalDate datebirth,String phoneNumber , String profession, String email, String password, String role) {
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+
+    public User(String firstname, String lastname, LocalDate datebirth, String phoneNumber , String profession, String email, String password, String role) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.datebirth = datebirth;
@@ -132,4 +147,30 @@ public class User {
         this.equipeEnCharge = equipeEnCharge;
     }
 
+    public List<Tache> getTaches() {
+        return taches;
+    }
+
+    public void setTaches(List<Tache> taches) {
+        this.taches = taches;
+    }
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @PreRemove
+    private void removeEquipeChef() {
+        if (equipeEnCharge != null) {
+            equipeEnCharge.setChefEquipe(null);
+        }
+    }
 }

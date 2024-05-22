@@ -11,18 +11,29 @@ public class Equipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id ;
     private String name;
-    @OneToMany(mappedBy = "equipe")
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> userList = new ArrayList<>();
-    @OneToMany(mappedBy = "equipep")
+    @OneToMany(mappedBy = "equipeproject", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Project> projectList = new ArrayList<>();
-    @OneToOne
-    @JoinColumn(name = "chef_equipe_id")
-    private User chefEquipe;
+//    @OneToOne
+//    @JoinColumn(name = "chef_equipe_id")
+//    private User chefEquipe;
+@OneToOne
+private User chefEquipe;
     public Equipe(String name, User chefEquipe) {
 
         this.name = name;
         this.chefEquipe = chefEquipe;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Equipe() {
     }
 
@@ -57,5 +68,39 @@ public class Equipe {
         this.chefEquipe = chefEquipe;
     }
 
+    @Override
+    public String toString() {
+        return "Equipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userList=" + userList +
+                ", projectList=" + projectList +
+                ", chefEquipe=" + chefEquipe +
+                '}';
+    }
+
+    public void ajouterUtilisateur(User utilisateur) {
+        userList.add(utilisateur);
+        utilisateur.setEquipe(this);
+    }
+    public void retirerUtilisateur(User user) {
+        System.out.println("Bonjour");
+        for (User u : userList) {
+            if (u.getId().equals(user.getId())) {
+                System.out.println("Utilisateur à retirer trouvé dans l'équipe.");
+                userList.remove(u);
+                user.setEquipe(null); // Mettre à jour l'équipe de l'utilisateur
+                return;
+            }
+        }
+        System.out.println("L'utilisateur à retirer n'est pas présent dans l'équipe.");
+    }
+
+    @PreRemove
+    private void removeChefEquipe() {
+        if (chefEquipe != null) {
+            chefEquipe.setEquipeEnCharge(null);
+        }
+    }
 
 }

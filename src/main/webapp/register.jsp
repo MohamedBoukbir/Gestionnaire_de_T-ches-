@@ -75,24 +75,16 @@
 		      	<form method="POST" action="RegisterServlet" class="signin-form">
                     <div class="form-group">
 
-		      			<input type="text" name="fisrtname" class="form-control" placeholder="Prenom" required>
+		      			<input type="text" name="firstname" class="form-control" placeholder="Prenom" required>
                     </div>
                       <div class="form-group">
                         <input type="text" name="lastname" class="form-control" placeholder="Nom" required>
 
-
-		      			<input type="text" name="firstname" class="form-control" placeholder="Fisrt Name" required>
                         <% if(request.getAttribute("errorfirstname")!=null){ String errorfirstname = request.getAttribute("errorfirstname").toString();%>
                         <div  style="color : red"><%=errorfirstname%></div>
                         <% }%>
                     </div>
-                      <div class="form-group">
-                        <input type="text" name="lastname" class="form-control" placeholder="Last Name" required>
-                          <% if(request.getAttribute("errorlastname")!=null){ String errorlastname = request.getAttribute("errorlastname").toString();%>
-                          <div  style="color : red"><%=errorlastname%></div>
-                          <% }%>
 
-                    </div>
                     <div class="form-group">
                     <div class="datepicker date input-group">
                         <input type="text" name="datebirth" placeholder="Date naissance" class="form-control" id="fecha1">
@@ -108,7 +100,6 @@
 
                         <input type="tel" name="phonenumber" class="form-control" placeholder="Num telephone" required>
 
-                        <input type="tel" name="phonenumber" class="form-control" placeholder="Phone Number" required>
                         <% if(request.getAttribute("errorphonenumber")!=null){ String errorphonenumber = request.getAttribute("errorphonenumber").toString();%>
                         <div  style="color : red"><%=errorphonenumber%></div>
                         <% }%>
@@ -125,11 +116,6 @@
                          <% if(request.getAttribute("error")!=null){ %>
                                      <div  style="color : red">Email Already exist</div>
                          <% }%>
-
-                        <input type="email" name="email" class="form-control" placeholder="E-mail Sup de vinci" required>
-                          <% if(request.getAttribute("erroremail")!=null){ String erroremail = request.getAttribute("erroremail").toString();%>
-                          <div  style="color : red"><%=erroremail%></div>
-                          <% }%>
 
                     </div>
 	            <div class="form-group">
