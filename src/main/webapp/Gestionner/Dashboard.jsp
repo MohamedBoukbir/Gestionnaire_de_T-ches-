@@ -303,7 +303,7 @@
                 </div>
                 <ul>
                     <li class=""> <%-- active--%>
-                        <a href="GestionnerHomeServlet?action=showDashboard"><i style="color: #E0BE81" class="fa-solid fa-gauge-high"></i>
+                        <a href="GestionnerHomeServlet?action=showDashboard"><i style="color: #E0BE81" class="fa-solid fa-diagram-project"></i>
                             <span style="color: #052659">Projet</span></a>
                     </li>
 

@@ -211,20 +211,20 @@ public class GestionnerHomeServlet extends HttpServlet {
                 request.setAttribute("allUsers", allUsers);
                 int AllMember = membresEquipe.size();
                 request.setAttribute("AllMember", AllMember);
-<<<<<<< HEAD
+
                 request.setAttribute("allUsers", allUsers);
         //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listequipe.jsp");
         requestDispatcher.forward(request, response);
     }
-=======
+
                 //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listequipe.jsp");
                 requestDispatcher.forward(request, response);
             }
->>>>>>> f8afabcc946856c6970c0302624968043167c9eb
+
         }
-    }
+
 
     private void addProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         System.out.println("add project");
@@ -463,7 +463,7 @@ public class GestionnerHomeServlet extends HttpServlet {
                     String erroremailcurrent = "Le mot de passe actuel est incorrect.";
                     request.setAttribute("erroremailcurrent", erroremailcurrent);
                 } else if (!password.equals(password_confirmation)) {
-                    String erroremailconfir = "Les mots de passe ne correspondent pas.";
+                    String erroremailconfir = "Les mots de passe n'est pas identique .";
                     request.setAttribute("erroremailconfir", erroremailconfir);
                 } else {
                     user.setPassword(password);
@@ -573,7 +573,7 @@ public class GestionnerHomeServlet extends HttpServlet {
     private void deletecommentaire(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
         iCommentaireDao.deleteById(id);
-        response.sendRedirect("GestionnerHomeServlet");
+        listTache(request, response);
     }
 
 }

@@ -100,7 +100,7 @@
         background-color: #fff;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         max-width: 600px;
-        height: 16%;
+        height: 18%;
         position: relative;
         overflow-wrap: break-word;
     }
@@ -160,19 +160,19 @@
                     <p class="comment-date" style=" margin-left: 2%;color: #adafc5;font-size:11px ">
                         <c:out value="${commentaire.date_cm}" />
                     </p>
-                    <p class="comment-text" style=" margin-left: 2%;font-size: 18px ;color: #052659">
+                    <p class="comment-text" style=" margin-left: 2%;font-size: 18px ;color: #052659; margin-top: 3%">
                         <c:out value="${commentaire.contenu_cm}" />
                     </p>
-                    <a   type="button" class="btn-trash " data-toggle="modal" data-target="#deleteModal${commentaire.id}">
+                   <%-- <a   type="button" class="btn-trash " data-toggle="modal" data-target="#deleteModal${commentaire.id}">
                         <i class="fa-solid fa-trash-can"  style=" color: #FF002D;"></i>
-                    </a>
+                    </a>--%>
 
                   <%--  <a type="button" class="d-flex justify-content-end   " data-toggle="modal" data-target="#deleteModal${commentaire.id}">
                         <i class="fa-solid fa-trash"></i>
                     </a>--%>
                 </div>
                 <%-- Delete Modal --%>
-                <div class="modal fade" id="deleteModal${commentaire.id}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
+               <%-- <div class="modal fade" id="deleteModal${commentaire.id}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <form action="UserHomeServlet?action=deletecommentaire&id=<c:out value='${commentaire.id}' />" method="POST" enctype="multipart/form-data">
@@ -189,6 +189,31 @@
                                     <button type="button" class="btn gray btn-outline-secondary" data-dismiss="modal">Annuler</button>
                                     <button type="submit" class="btn gray btn-outline-danger">Supprimer</button>
                                 </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>--%>
+
+                <div class="modal fade" id="deleteModal${commentaire.id}" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content" style="border-radius: 10px; height: 10%">
+                            <div class="modal-header border-bottom-0">
+                                <i class="fa-solid fa-trash-can" style="color: #548383; margin-right: 5px;"></i>
+                                <h5 class="modal-title" id="exampleModalLabell2" style="color: #052659; font-weight: bold;">Supprimer commentaire</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="UserHomeServlet?action=deletecommentaire&id=<c:out value='${commentaire.id}' />" method="POST" enctype="multipart/form-data">
+                                <div class="text-center" >
+                                    <strong>Voulez-vous supprimer cette commentaire ? </strong>
+
+                                </div>
+                                <div class=" d-flex justify-content-end">
+                                    <button type="submit" class=""
+                                            style=" margin-right: 6px; margin-bottom: 5px;font-weight: bold; border-radius:12px;width: 110px;height: 40px; color:#E0BE81; background-color: #FF002D ; border-color: #FF002D">Supprimer</button>
+                                </div>
+
                             </form>
                         </div>
                     </div>

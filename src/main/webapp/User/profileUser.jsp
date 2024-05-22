@@ -134,7 +134,10 @@
                                         <input type="password" class="form-control" name="current_password"
                                                id="current_password" autocomplete="off" value="">
                                         <% if(request.getAttribute("erroremailcurrent")!=null){ String erroremailcurrent = request.getAttribute("erroremailcurrent").toString();%>
-                                        <div  style="color : red"><%=erroremailcurrent%></div>
+                                        <div th:if="${erroremailcurrent}" class="error-message alert-danger" style="justify-content: center; width:70%; border-radius: 4px; border-left: 6px solid #FF002D; background-color: #fffbe2; color: #FF002D; margin-left: auto; margin-right: auto; text-align: center;">
+                                            <i class="fa-regular fa-bell" th:if="${erroremailcurrent}"></i>
+                                            <p th:text="${erroremailcurrent}"></p>
+                                            <%=erroremailcurrent%></div>
                                         <% }%>
                                     </div>
                                 </div>
@@ -155,7 +158,10 @@
                                         <input type="password" class="form-control" name="password_confirmation"
                                                id="password_confirmation">
                                         <% if(request.getAttribute("erroremailconfir")!=null){ String erroremailconfir = request.getAttribute("erroremailconfir").toString();%>
-                                        <div  style="color : red"><%=erroremailconfir%></div>
+                                        <div th:if="${erroremailconfir}" class="error-message alert-danger" style="justify-content: center; width:70%; border-radius: 4px; border-left: 6px solid #FF002D; background-color: #fffbe2; color: #FF002D; margin-left: auto; margin-right: auto; text-align: center;">
+                                            <i class="fa-regular fa-bell" th:if="${erroremailconfir}"></i>
+                                            <p th:text="${erroremailconfir}"></p>
+                                            <%=erroremailconfir%></div>
                                         <% }%>
                                     </div>
                                 </div>

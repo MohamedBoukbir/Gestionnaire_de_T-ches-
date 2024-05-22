@@ -366,11 +366,9 @@ che<div class="page-wrapper">
                                                     </button>
                                                 </div>
                                                 <form action="AdminServlet?action=enable&id=<c:out value='${user.id}' />" method="POST" enctype="multipart/form-data">
-                                                    <div class="form-group mb-3" >
+
                                                         <div class="text-center" > <strong>Êtes-vous sûr de vouloir désactiver l'utiliasateur</strong> <strong style="color: #b9d932" >   ${user.firstname}   </b> ?  </strong>
-                                                        </div></div>
-
-
+                                                        </div>
                                                     <div class=" d-flex justify-content-end">
                                                         <button type="submit" class=""
                                                                 style=" margin-right: 6px; margin-bottom: 5px;font-weight: bold; border-radius:12px;width: 110px;height: 40px; color:#E0BE81; background-color: #FF002D ; border-color: #FF002D">Désactiver</button>
@@ -459,16 +457,16 @@ che<div class="page-wrapper">
             </div>
             <form action="AdminServlet?action=addGestionner&id=<c:out value='${user.id}' />" method="POST"  class="modal-body">
                 <div class="form-group mb-3" >
-                    <select class="form-select" style="height: 45px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  " name="user_id" id="user_id" aria-label="Default select example" >
-                        <option value="" style="height: 45px;width: 260px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  " >Definir un utilisateur</option>
+                    <select class="form-select" style="height: 45px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  " name="user_id" id="user_id" aria-label="Default select example" required>
+                        <option value="" style="height: 45px;width: 260px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  "   >Definir un utilisateur</option>
                         <c:forEach  items="${users}" var="u">
                             <option style="height: 45px;width: 260px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  " value="<c:out value='${u.id}' />"> <c:out value="${u.firstname}"/>  <c:out value="${u.lastname}"/></option>
                         </c:forEach>
                     </select>
                         <% if(request.getAttribute("error")!=null){ String error = request.getAttribute("error").toString();%>
                     <div th:if="${errors}" class="error-message alert-danger" style="justify-content: center; width:70%; border-radius: 4px; border-left: 6px solid #FF002D; background-color: #fffbe2; color: #FF002D; margin-left: auto; margin-right: auto; text-align: center;">
-                        <i class="fa-regular fa-bell" th:if="${errors}"></i>
-                        <p th:text="${errors}"></p>
+                        <i class="fa-regular fa-bell" th:if="${error}"></i>
+                        <p th:text="${error}"></p>
 
                         <%=error%></div>
                         <% }%>

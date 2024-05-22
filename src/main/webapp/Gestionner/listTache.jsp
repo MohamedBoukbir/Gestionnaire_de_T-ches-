@@ -1,5 +1,7 @@
  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-  <%@ include file="/Gestionner/Dashboard.jsp" %>
+ <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+
+ <%@ include file="/Gestionner/Dashboard.jsp" %>
  <%@ page isELIgnored="false"%>
 
  <style>
@@ -68,7 +70,7 @@
      .paginationn {
 
          margin: 0px;
-         /* Centrez les Ã©lÃ©ments de la pagination horizontalement */
+         /* Centrez les éléments de la pagination horizontalement */
      }
 
 
@@ -306,11 +308,8 @@
                                                 </button>
                                             </div>
                                             <form action="GestionnerHomeServlet?action=deletetache&id=<c:out value='${tache.id}' />"  method="POST" enctype="multipart/form-data" class="modal-body">
-                                                <div class="form-group mb-3" >
-                                                    <div class="text-center" > <strong>ÃŠtes-vous sÃ»r de vouloir supprimer la tache </strong> <strong style="color: #b9d932" >  ${tache.titretache}  </b> ?  </strong>
-                                                    </div></div>
-
-
+                                                    <div class="text-center" > <strong>Êtes-vous sûr de vouloir supprimer la tache </strong> <strong style="color: #b9d932" >  ${tache.titretache}  ?  </strong>
+                                                    </div>
                                                 <div class=" d-flex justify-content-end" >
                                                     <button type="submit" class=""
                                                             style=" margin-right: 6px; margin-bottom: 5px;font-weight: bold; border-radius:12px;width: 110px;height: 40px; color:#E0BE81; background-color: #FF002D ; border-color: #FF002D">Supprimer</button>
@@ -395,8 +394,8 @@
                          <div class="form-group">
                              <label for="deadline" style="color: #052659 ; font-weight: bold;">Dernier delais</label>
                              <div class="datepicker date input-group">
-                                 <input  style="border-color: #E0BE81;padding-right: 60px; height: 45px" type="text" name="deadline" placeholder="Deadline" class="form-control" id="deadline" required> <!-- Augmenter le padding-right pour l'icÃ´ne -->
-                                 <span class="input-group-append" style="position: absolute; right: 5px; top: 0; bottom: 0; margin: auto; margin-right: 5px;"> <!-- Ajuster la position de l'icÃ´ne -->
+                                 <input  style="border-color: #E0BE81;padding-right: 60px; height: 45px" type="text" name="deadline" placeholder="Deadline" class="form-control" id="deadline" required> <!-- Augmenter le padding-right pour l'icône -->
+                                 <span class="input-group-append" style="position: absolute; right: 5px; top: 0; bottom: 0; margin: auto; margin-right: 5px;"> <!-- Ajuster la position de l'icône -->
             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
         </span>
                              </div>
@@ -442,7 +441,7 @@
 
 
 
- <!-- Ajout du formulaire pour ajouter des tÃ¢ches -->
+ <!-- Ajout du formulaire pour ajouter des tâches -->
 
  <script>
      getPagination('#table-id');
@@ -506,7 +505,7 @@
      function showig_rows_count(maxRows, pageNum, totalRows) {
          var end_index = maxRows * pageNum;
          var start_index = ((maxRows * pageNum) - maxRows) + parseFloat(1);
-         var string = 'Affichage de ' + start_index + ' sur ' + totalRows + ' entrÃ©es';
+         var string = 'Affichage de ' + start_index + ' sur ' + totalRows + ' entrées';
          $('.rows_count').html(string);
      }
 

@@ -1,5 +1,7 @@
  <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   <%@ include file="/Gestionner/Dashboard.jsp" %>
+ <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+
  <%@ page isELIgnored="false"%>
 
  <style>
@@ -68,7 +70,7 @@
      .paginationn {
 
          margin: 0px;
-         /* Centrez les Ã©lÃ©ments de la pagination horizontalement */
+         /* Centrez les éléments de la pagination horizontalement */
      }
 
 
@@ -272,7 +274,7 @@
                                                      </button>
                                                  </div>
                                                  <form action="GestionnerHomeServlet?action=removeMemberFromTeam&id=<c:out value='${user.id}' />" method="POST">                                                     <div class="form-group mb-3" >
-                                                         <div class="text-center" > <strong>ÃŠtes-vous sÃ»r de vouloir supprimer le membre</strong> <strong style="color: #b9d932" >  ${user.firstname}  </b> ?  </strong>
+                                                         <div class="text-center" > <strong>Êtes-vous sûr de vouloir supprimer le membre</strong> <strong style="color: #b9d932" >  ${user.firstname}  </b> ?  </strong>
                                                          </div></div>
 
 
@@ -334,7 +336,7 @@
                      <select class="form-select" style="height: 45px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  " name="user" id="user" aria-label="Default select example" >
                          <option value="" style="height: 45px;width: 260px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  " >Definir un utilisateur</option>
                          <c:forEach  items="${allUsers}" var="user">
-                             <option style="height: 45px;width: 260px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  "  value="<c:out value='${user.id}' />"> <c:out value="${user.firstname} "/>  <c:out value="${user.lastname}"/></option>
+                             <option style="height: 45px;width: 260px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold  "    value="<c:out value='${user.id}' />"> <c:out value="${user.firstname} "/>   <c:out value="${user.lastname}"/></option>
 
                          </c:forEach>
                      </select>
@@ -422,7 +424,7 @@
      function showig_rows_count(maxRows, pageNum, totalRows) {
          var end_index = maxRows * pageNum;
          var start_index = ((maxRows * pageNum) - maxRows) + parseFloat(1);
-         var string = 'Affichage de ' + start_index + ' sur ' + totalRows + ' entrÃ©es';
+         var string = 'Affichage de ' + start_index + ' sur ' + totalRows + ' entrées';
          $('.rows_count').html(string);
      }
 

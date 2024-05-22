@@ -32,10 +32,10 @@
          color: #052659;
          border-color: #052659;
          text-align: center;
-
-
-
      }
+
+
+
      .paginationn li:focus{
          cursor: pointer;
          background-color:#E0BE81  ;
@@ -125,54 +125,53 @@
 
                 <div class="row mb-4">
                     <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="card board1 fill1 ">
+                        <div class="card board1 fill1 " style="background-color: #e86c4f">
                             <div class="card-body">
                                 <div class="card_widget_header">
                                     <label>Projects</label>
                                     <h4> ${allProjects}</h4>
                                 </div>
-                                <div class="card_widget_img">
-                                    <img src="img/employee.svg" alt="card-img" />
+                                <div class="card_widget_img" style="background-color: #bfddce">
+                                    <i style="color: #E0BE81" class="fa-solid fa-diagram-project"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="card board1 fill1 ">
+                        <div class="card board1 fill1 " style="background-color: #dbae8d">
                             <div class="card-body">
                                 <div class="card_widget_header">
                                     <label>Taches</label>
                                     <h4>${allTaches}</h4>
                                 </div>
-                                <div class="card_widget_img">
-                                    <img src="img/employee.svg" alt="card-img" />
+                                <div class="card_widget_img"  style="background-color: #f2e5d3">
+                                    <i class="fa-solid fa-list-check" style="color: #E0BE81"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-3 col-sm-6 col-12">
-                        <div class="card board1 fill1 ">
+                        <div class="card board1 fill1 " style="background-color: #027a76">
                             <div class="card-body">
                                 <div class="card_widget_header">
                                     <label>Gestionners</label>
                                     <h4>${allGestionners}</h4>
                                 </div>
                                 <div class="card_widget_img">
-                                    <img src="img/employee.svg" alt="card-img" />
+                                    <i  style="color: #E0BE81" class="fa-solid fa-id-badge"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-xl-3 col-sm-6 col-12 mt-2">
-                        <div class="card board1 fill6 ">
+                    <div class="col-xl-3 col-sm-6 col-12 ">
+                        <div class="card board1 fill6 " style="background-color: #f4a24c">
                             <div class="card-body">
                                 <div class="card_widget_header">
                                     <label>Memberes</label>
                                     <h4>${allMemberes}</h4>
                                 </div>
                                 <div class="card_widget_img">
-                                    <img src="img/report.svg" alt="card-img" />
+                                    <i  style="color: #E0BE81" class="fa-solid fa-id-badge"></i>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +180,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xl-6 d-flex">
+                    <div class="col-xl-6 d-flex justify-content-center " >
                         <div class="card flex-fill">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -193,7 +192,10 @@
                             </div>
                         </div>
                     </div>
-                <div class="col-xl-6 d-flex">
+
+
+            </div>
+                <div class="col-lg d-flex">
                     <div class="card flex-fill">
                     <div class="card">
                         <div class="table-responsive  p-4 " >
@@ -242,7 +244,6 @@
                     </div>
                     </div>
                 </div>
-            </div>
 
         </div>
 

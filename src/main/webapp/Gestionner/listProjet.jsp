@@ -413,7 +413,7 @@
                                             </a>
                                         </td>
                                     </tr>
-                                        <div class="modal fade" id="deleteModal${project.id}" style="height: 30%; margin-top: 15%" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabell2" aria-hidden="true">
+                                        <div class="modal fade" id="deleteModal${project.id}" style="height: 35%; margin-top: 15%" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabell2" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content" style="border-radius: 10px; height: 10%">
                                                     <div class="modal-header border-bottom-0">
@@ -428,6 +428,7 @@
                                                             <strong>Êtes-vous sûr de vouloir supprimer le projet </strong>
                                                             <strong style="color: #b9d932" >  ${project.name}  </b> ?  </strong>
                                                         </div>
+                                                        <br>
                                                         <div class=" d-flex justify-content-end">
                                                             <button type="submit" class=""
                                                                     style=" margin-right: 6px; margin-bottom: 5px;font-weight: bold; border-radius:12px;width: 110px;height: 40px; color:#E0BE81; background-color: #FF002D ; border-color: #FF002D">Supprimer</button>

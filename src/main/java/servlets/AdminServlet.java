@@ -240,7 +240,7 @@ public class AdminServlet extends HttpServlet {
                     String erroremailcurrent = "Le mot de passe actuel est incorrect.";
                     request.setAttribute("erroremailcurrent", erroremailcurrent);
                 } else if (!password.equals(password_confirmation)) {
-                    String erroremailconfir = "Les mots de passe ne correspondent pas.";
+                    String erroremailconfir = "Les mots de passe n'est pas identique .";
                     request.setAttribute("erroremailconfir", erroremailconfir);
                 } else {
                     user.setPassword(password);
