@@ -185,6 +185,7 @@ public class GestionnerHomeServlet extends HttpServlet {
                 List<User> allUsers = userDao.findUsersNotMembres();
                 int AllMember = membresEquipe.size();
                 request.setAttribute("AllMember", AllMember);
+                request.setAttribute("allUsers", allUsers);
         //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listequipe.jsp");
         requestDispatcher.forward(request, response);
