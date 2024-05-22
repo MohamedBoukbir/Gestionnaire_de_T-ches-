@@ -16,6 +16,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import services.EquipeDaoImpl;
 import services.ProjectDaoImpl;
+import services.TacheDaoImpl;
 import services.UserDaoImpl;
 
 import java.io.IOException;
@@ -26,10 +27,14 @@ import java.util.List;
 public class AdminServlet extends HttpServlet {
     public UserDao userDao ;
     public IEquipeDao equipeDao ;
+    public TacheDaoImpl taskDao;
+    public ProjectDaoImpl projectDao;
     @Override
     public void init() throws ServletException {
         userDao=new UserDaoImpl();
         equipeDao= new EquipeDaoImpl();
+        taskDao=new TacheDaoImpl();
+        projectDao=new ProjectDaoImpl();
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -108,6 +113,19 @@ public class AdminServlet extends HttpServlet {
         List<Project> ListProjet = ProjectDaoImpl.f;
         request.setAttribute("listUser", listUser);*/
         //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
+        List<User> listgestionners = userDao.findGestionners();
+        int allGestionnerCount = listgestionners.size();
+        List<User> members = userDao.findUsers();
+        int allMembersCount = members.size();
+        List<Tache>  taches =taskDao.findAll();
+        int allTachesCount = taches.size();
+        List<Project> projects = projectDao.findAll();
+        int allProjectsCount = projects.size();
+
+        request.setAttribute("allProjectsCount", allProjectsCount);
+        request.setAttribute("allTachesCount", allTachesCount);
+        request.setAttribute("allGestionnerCount", allGestionnerCount);
+        request.setAttribute("allMembersCount", allMembersCount);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Admin/listequipe.jsp");
         requestDispatcher.forward(request,response);
     }
