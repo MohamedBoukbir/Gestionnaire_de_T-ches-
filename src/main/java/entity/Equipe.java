@@ -11,7 +11,7 @@ public class Equipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id ;
     private String name;
-    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "equipe", orphanRemoval = true)
     private List<User> userList = new ArrayList<>();
     @OneToMany(mappedBy = "equipeproject", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Project> projectList = new ArrayList<>();

@@ -363,7 +363,7 @@
                              <input style="border-color: #E0BE81" id="titretache" name="titretache" class="form-control p-3 my-2" required />
                          </div>
                          <label for="projectId" style="color: #052659; font-weight: bold">Projet </label>
-                         <select class="form-select" style="height: 45px; border-radius: 6px; background: #f1f7cd;color: #052659  ;border-color: #E0BE81" name="projectId" id="projectId" aria-label="Default select example" >
+                         <select class="form-select" style="height: 45px; border-radius: 6px; background: #f1f7cd;color: #052659  ;border-color: #E0BE81" name="projectId" id="projectId" aria-label="Default select example" requiered >
                              <option value="" style="height: 45px;width: 260px; border-radius: 6px; background: #f1f7cd;color: #052659;   " >Selectionnez le projet </option>
                              <c:forEach items="${projects}" var="project">
                                  <option style="height: 45px;width: 260px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold " value="${project.id}">${project.name}</option>
@@ -379,7 +379,7 @@
                              <% }%>
                          <br>
                          <label for="membreEquipeId" style=" margin-top: 4%;color: #052659; font-weight: bold">Membre d equipe :</label>
-                         <select class="form-select" style="order-color: #E0BE81;height: 45px; border-radius: 6px; background: #f1f7cd;color: #052659 " name="membreEquipeId" id="membreEquipeId" aria-label="Default select example" >
+                         <select class="form-select" style="order-color: #E0BE81;height: 45px; border-radius: 6px; background: #f1f7cd;color: #052659 " name="membreEquipeId" id="membreEquipeId" aria-label="Default select example" required>
 
                              <c:forEach items="${membresEquipe}" var="membre">
                                  <option style="height: 45px;width: 260px; border-radius: 6px; background: #f1f7cd;color: #052659; font-weight: bold "  value="${membre.id}">${membre.firstname} ${membre.lastname}</option>
@@ -395,7 +395,7 @@
                          <div class="form-group">
                              <label for="deadline" style="color: #052659 ; font-weight: bold;">Dernier delais</label>
                              <div class="datepicker date input-group">
-                                 <input  style="border-color: #E0BE81;padding-right: 60px; height: 45px" type="text" name="deadline" placeholder="Deadline" class="form-control" id="deadline"> <!-- Augmenter le padding-right pour l'icône -->
+                                 <input  style="border-color: #E0BE81;padding-right: 60px; height: 45px" type="text" name="deadline" placeholder="Deadline" class="form-control" id="deadline" required> <!-- Augmenter le padding-right pour l'icône -->
                                  <span class="input-group-append" style="position: absolute; right: 5px; top: 0; bottom: 0; margin: auto; margin-right: 5px;"> <!-- Ajuster la position de l'icône -->
             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
         </span>

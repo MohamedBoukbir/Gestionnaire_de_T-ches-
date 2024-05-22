@@ -218,13 +218,12 @@
 
 
 
-                         <span class="user-img">
-                             <img src="https://ui-avatars.com/api/?name=mohamed"
-                                 alt="" style="width: 40px;height: 40px;">
+                          <span class="user-img">
+                             <img src="https://ui-avatars.com/api/?name=${nomuserconnecter.lastname}"
+                                  alt="" style="width: 40px;height: 40px;">
                              <span class="status online"></span>
                          </span>
-
-                        <span>Mohamed</span>
+                        ${nomuserconnecter.lastname}
                     </a>
                     <div class="dropdown-menu">
                         <button type="submit" class="btn btn-link" style="margin-left: 0px">
