@@ -35,6 +35,14 @@ public class UserHomeServlet  extends HttpServlet  {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("userhomeservlet");
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute("profile");
+            if (user != null) {
+                request.setAttribute("nomuserconnecter", user);
+            }
+        }
+        System.out.println("userhomeservlet");
         String action = request.getServletPath();
         String at = request.getParameter("action") != null ? request.getParameter("action") : "none";
         System.out.println("A:"+at);

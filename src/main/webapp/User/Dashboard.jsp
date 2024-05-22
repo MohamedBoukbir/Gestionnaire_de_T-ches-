@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css"  href="css/style1.css">
     <link rel="stylesheet" type="text/css" href="css/style_acceuil.css">
     <link rel="stylesheet" type="text/css"  href="css/select2.min.css" />
-
+    <link rel="icon" type="image/png" href="images/logo1.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 
@@ -230,13 +230,12 @@
 
         <li class="nav-item dropdown has-arrow main-drop">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                         <span class="user-img">
-                             <img src="https://ui-avatars.com/api/?name=mohamed"
+  <span class="user-img">
+                             <img src="https://ui-avatars.com/api/?name=${nomuserconnecter.lastname}"
                                   alt="" style="width: 40px;height: 40px;">
                              <span class="status online"></span>
                          </span>
-
-                <span>Mohamed</span>
+                ${nomuserconnecter.lastname}
             </a>
             <div class="dropdown-menu">
                 <button type="submit" class="btn btn-link" style="margin-left: 0px">

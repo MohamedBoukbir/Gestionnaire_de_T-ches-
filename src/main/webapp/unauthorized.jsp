@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Unauthorized Access</title>
+    <link rel="icon" type="image/png" href="images/logo1.png">
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>

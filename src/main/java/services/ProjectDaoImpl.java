@@ -2,31 +2,28 @@ package services;
 
 import Dao.IProjectDao;
 import Dao.ITaskDao;
+import Dao.UserDao;
 import entity.Project;
 import entity.Tache;
 import entity.User;
 import jakarta.persistence.*;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ProjectDaoImpl implements IProjectDao {
     private EntityManager entityManager;
     private ITaskDao taskDao=new TacheDaoImpl();
+    private UserDao userDao=new UserDaoImpl();
     public ProjectDaoImpl() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager=entityManagerFactory.createEntityManager();
     }
-    //        Query query1 =entityManager.createQuery("select u from User u where u.name like:x");
-    //        query1.setParameter("x","%"+mc+"%");
+
     @Override
     public List<Project> findAll() {
         Query query = entityManager.createQuery("select p from Project p");
         List<Project> projects = query.getResultList();
-//        for (Project project : projects) {
-//            System.out.println("Project Name: " + project.getName());
-//            System.out.println("Date Creation: " + project.getDatep());
-//            System.out.println("Description: " + project.getDescription());
-//        }
         return projects;
     }
     @Override
@@ -66,4 +63,23 @@ public class ProjectDaoImpl implements IProjectDao {
             taskDao.deleteById(task.getId());
         }
     }
+    @Override
+    public List<Project> findProjectsByUserId(Long userId) {
+        // Récupérer l'utilisateur par son ID
+        User user = userDao.findById(userId);
+        if (user != null && user.getEquipeEnCharge() != null) {
+            // Récupérer l'ID de l'équipe en charge de l'utilisateur
+            Long equipeId = user.getEquipeEnCharge().getId();
+            // Créer la requête pour récupérer les projets associés à cette équipe
+            Query query = entityManager.createQuery("SELECT p FROM Project p WHERE p.equipeproject.id = :equipeId");
+            query.setParameter("equipeId", equipeId);
+            // Exécuter la requête et retourner la liste des projets
+            return query.getResultList();
+        } else {
+            // Si l'utilisateur ou son équipe en charge est nul, retourner une liste vide
+            return Collections.emptyList();
+        }
+    }
+
+
 }

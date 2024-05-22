@@ -18,4 +18,7 @@ public interface UserDao {
     public void updateEquipe(Equipe equipe);
     public List<User> findMembresEquipe(Equipe equipe);
     public List<User> findUsersNotMembres();
+   public  long countProjectsByChefId(Long id);
+
+   public  long countTachesByChefId(Long id);
 }

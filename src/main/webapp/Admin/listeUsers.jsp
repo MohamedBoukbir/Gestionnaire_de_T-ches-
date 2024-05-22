@@ -315,7 +315,7 @@ che<div class="page-wrapper">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form action="AdminServlet?action=enable&id=<c:out value='${user.id}' />" method="POST" enctype="multipart/form-data" class="modal-body">
+                                                <form action="AdminServlet?action=delete&id=<c:out value='${user.id}' />" method="POST" enctype="multipart/form-data" class="modal-body">
                                                     <div class="form-group mb-3" >
                                                         <div class="text-center" > <strong>Êtes-vous sûr de vouloir supprimer l'utiliasateur</strong> <strong style="color: #b9d932" >  ${user.firstname}  </b> ?  </strong>
                                                         </div></div>

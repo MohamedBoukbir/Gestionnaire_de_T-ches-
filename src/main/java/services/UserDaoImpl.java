@@ -5,6 +5,8 @@ import Util.UserStatus;
 import entity.Equipe;
 import entity.User;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
@@ -40,6 +42,18 @@ public class UserDaoImpl implements UserDao {
         Query query =entityManager.createQuery("select u from User u where u.role = :x");
         query.setParameter("x","Gestionner");
         return query.getResultList();
+    }
+    public long countProjectsByChefId(Long chefId) {
+        TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(p) FROM Project p WHERE p.equipeproject.chefEquipe.id = :chefId", Long.class);
+        query.setParameter("chefId", chefId);
+        return query.getSingleResult();
+    }
+
+    public long countTachesByChefId(Long chefId) {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(t) FROM Tache t WHERE t.membreEquipe.equipe.chefEquipe.id = :chefId", Long.class);
+        query.setParameter("chefId", chefId);
+        return query.getSingleResult();
     }
     public User findbyEmail(String email){
         Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email");
@@ -102,6 +116,7 @@ public class UserDaoImpl implements UserDao {
         }
         entityManager.getTransaction().commit();
     }
+
     public void updateEquipe(Equipe equipe) {
         entityManager.getTransaction().begin();
         entityManager.merge(equipe);

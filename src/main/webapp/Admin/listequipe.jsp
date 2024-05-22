@@ -1,6 +1,7 @@
- <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <%@ include file="/Admin/Dashboard.jsp" %>
- <%@ page isELIgnored="false"%>
+<%@ page isELIgnored="false"%>
  <style>
 
      table td{
@@ -68,7 +69,7 @@
      .paginationn {
 
          margin: 0px;
-         /* Centrez les Ã©lÃ©ments de la pagination horizontalement */
+         /* Centrez les éléments de la pagination horizontalement */
      }
 
 
@@ -127,8 +128,34 @@
                         <div class="card board1 fill1 ">
                             <div class="card-body">
                                 <div class="card_widget_header">
-                                    <label>Users</label>
-                                    <h4>0</h4>
+                                    <label>Projects</label>
+                                    <h4> ${allProjects}</h4>
+                                </div>
+                                <div class="card_widget_img">
+                                    <img src="img/employee.svg" alt="card-img" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="card board1 fill1 ">
+                            <div class="card-body">
+                                <div class="card_widget_header">
+                                    <label>Taches</label>
+                                    <h4>${allTaches}</h4>
+                                </div>
+                                <div class="card_widget_img">
+                                    <img src="img/employee.svg" alt="card-img" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="card board1 fill1 ">
+                            <div class="card-body">
+                                <div class="card_widget_header">
+                                    <label>Gestionners</label>
+                                    <h4>${allGestionners}</h4>
                                 </div>
                                 <div class="card_widget_img">
                                     <img src="img/employee.svg" alt="card-img" />
@@ -137,13 +164,12 @@
                         </div>
                     </div>
 
-
                     <div class="col-xl-3 col-sm-6 col-12 mt-2">
                         <div class="card board1 fill6 ">
                             <div class="card-body">
                                 <div class="card_widget_header">
-                                    <label>Groupe</label>
-                                    <h4>0</h4>
+                                    <label>Memberes</label>
+                                    <h4>${allMemberes}</h4>
                                 </div>
                                 <div class="card_widget_img">
                                     <img src="img/report.svg" alt="card-img" />
@@ -175,22 +201,29 @@
 
 
                                 <thead>
-                                <tr>
-                                    <th style="  font-size: 16px; font-weight: normal" >Projet</th>
-                                    <th style="  font-size: 16px;font-weight: normal" >Chef projet</th>
-                                    <th style="  font-size: 16px;font-weight: normal" >Membres</th>
+<%--                                <tr>--%>
+<%--                                    <th style="  font-size: 16px; font-weight: normal" >Projet</th>--%>
+<%--                                    <th style="  font-size: 16px;font-weight: normal" >Chef projet</th>--%>
+<%--                                    <th style="  font-size: 16px;font-weight: normal" >Membres</th>--%>
 
+<%--                                </tr>--%>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Email</th>
+                                    <th>Nombre de Projets</th>
+                                    <th>Nombre de Tâches</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${allusers}" var="user">
+                                <c:forEach var="gestionnaireDetail" items="${gestionnerDetails}">
                                     <tr>
-                                        <td> <c:out value="${user.firstname}"/> </td>
-                                        <td><c:out value="${user.lastname}"/></td>
-                                        <td><c:out value="${user.phoneNumber}"/></td>
-
+                                        <td>${gestionnaireDetail.gestionnaire.lastname}</td>
+                                        <td>${gestionnaireDetail.gestionnaire.firstname}</td>
+                                        <td>${gestionnaireDetail.gestionnaire.email}</td>
+                                        <td>${gestionnaireDetail.projectCount}</td>
+                                        <td>${gestionnaireDetail.tacheCount}</td>
                                     </tr>
-
                                 </c:forEach>
                                 </tbody>
                             </table>
@@ -296,7 +329,7 @@
          //Default rows showing
          var end_index = maxRows*pageNum;
          var start_index = ((maxRows*pageNum)- maxRows) + parseFloat(1);
-         var string = 'Affichage de '+ start_index + ' sur ' + totalRows + ' entrÃ©es';
+         var string = 'Affichage de '+ start_index + ' sur ' + totalRows + ' entrées';
          $('.rows_count').html(string);
      }
 

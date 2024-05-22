@@ -1,7 +1,6 @@
 
- package servlets;
-import Dao.ICommentaireDao;
-import Dao.UserDao;
+package servlets;
+import Dao.*;
 import Exeptions.UserEmalExistsExeption;
 import Util.Priority;
 import Util.Status;
@@ -16,13 +15,14 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 @WebServlet(name = "GestionnerHomeServlet", value = "/GestionnerHomeServlet")
 public class GestionnerHomeServlet extends HttpServlet {
-    ProjectDaoImpl projectDao;
-    EquipeDaoImpl equipeDao;
-    UserDaoImpl userDao;
-    TacheDaoImpl taskDao;
+    IProjectDao projectDao;
+    IEquipeDao equipeDao;
+    UserDao userDao;
+    ITaskDao taskDao;
     public ICommentaireDao iCommentaireDao;
 
     @Override
@@ -37,7 +37,13 @@ public class GestionnerHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("GestionnerHomeServlet");
-        //request.getRequestDispatcher("Home.jsp").forward(request,response);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute("profile");
+            if (user != null) {
+                request.setAttribute("nomuserconnecter", user);
+            }
+        }
         // Génération de la date actuelle
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -165,14 +171,33 @@ public class GestionnerHomeServlet extends HttpServlet {
 
     private void showDashboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<Project> listProject = projectDao.findAll();
-        request.setAttribute("listProject", listProject);
-        int allprojectsCount = listProject.size();
-        request.setAttribute("allprojectsCount", allprojectsCount);
-        //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listProjet.jsp");
-        requestDispatcher.forward(request, response);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // Récupérer l'utilisateur connecté
+            User connectedUser = (User) session.getAttribute("profile");
+            if (connectedUser != null) {
+                // Récupérer l'ID du gestionnaire connecté
+                Long userId = connectedUser.getId();
+                System.out.println(userId);
+                // Récupérer la liste des projets associés à ce gestionnaire
+                List<Project> listProject = projectDao.findProjectsByUserId(userId);
+                // Mettre les projets dans la requête pour les afficher dans la JSP
+                request.setAttribute("listProject", listProject);
+                System.out.println("listProject=" + listProject);
+                int allprojectsCount = listProject.size();
+                request.setAttribute("allprojectsCount", allprojectsCount);
+                // Rediriger vers la page JSP pour afficher les projets
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listProjet.jsp");
+                requestDispatcher.forward(request, response);
+            } else {
+                System.out.println("Utilisateur non trouvé dans la session.");
+
+            }
+        } else {
+            System.out.println("Session non trouvée.");
+        }
     }
+
     private void listequipe(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
@@ -183,13 +208,21 @@ public class GestionnerHomeServlet extends HttpServlet {
                 List<User> membresEquipe = userDao.findMembresEquipe(equipe);
                 request.setAttribute("membresEquipe", membresEquipe);
                 List<User> allUsers = userDao.findUsersNotMembres();
+                request.setAttribute("allUsers", allUsers);
                 int AllMember = membresEquipe.size();
                 request.setAttribute("AllMember", AllMember);
+<<<<<<< HEAD
                 request.setAttribute("allUsers", allUsers);
         //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listequipe.jsp");
         requestDispatcher.forward(request, response);
     }
+=======
+                //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listequipe.jsp");
+                requestDispatcher.forward(request, response);
+            }
+>>>>>>> f8afabcc946856c6970c0302624968043167c9eb
         }
     }
 
@@ -230,15 +263,27 @@ public class GestionnerHomeServlet extends HttpServlet {
 
 
     private void listProjet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("list projects");
-        List<Project> allprojects = projectDao.findAll();
-        int allprojectsCount = allprojects.size();
-        request.setAttribute("allprojectsCount", allprojectsCount);
-        System.out.println(allprojectsCount);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // Récupérer l'utilisateur connecté
+            User connectedUser = (User) session.getAttribute("profile");
+            if (connectedUser != null) {
+                // Récupérer l'ID du gestionnaire connecté
+                Long userId = connectedUser.getId();
+                // Récupérer la liste des projets associés à ce gestionnaire
+                List<Project> userProjects = projectDao.findProjectsByUserId(userId);
+                // Mettre les projets dans la requête pour les afficher dans la JSP
+                request.setAttribute("userProjects", userProjects);
+                // Rediriger vers la page JSP pour afficher les projets
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listProjet.jsp");
+                requestDispatcher.forward(request, response);
+            } else {
+                System.out.println("Utilisateur non trouvé dans la session.");
 
-        request.setAttribute("allprojects", allprojects);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listProjet.jsp");
-        requestDispatcher.forward(request, response);
+            }
+        } else {
+            System.out.println("Session non trouvée.");
+        }
     }
 
     @Override
@@ -351,31 +396,55 @@ public class GestionnerHomeServlet extends HttpServlet {
                 // Gérer les autres exceptions
             }
         } else {
-            // Gérer le cas où des paramètres sont manquants
+            String error = "Veuillez remplir tout les champs";
+            request.setAttribute("error", error);
+            listTache(request, response);
         }
     }
 
     private void listTache(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Project> projects = projectDao.findAll();
-        // Passer la liste des projets comme un attribut de requête
-        request.setAttribute("projects", projects);
-
         HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute("profile");
-        Equipe equipe = user.getEquipeEnCharge();
-        List<User> membresEquipe = userDao.findMembresEquipe(equipe);
+        if (session != null) {
+            // Récupérer l'utilisateur connecté
+            User user = (User) session.getAttribute("profile");
+            if (user != null && user.getEquipeEnCharge() != null) {
+                // Récupérer l'équipe du gestionnaire connecté
+                Equipe equipe = user.getEquipeEnCharge();
+                System.out.println("equipeId=" + equipe.getId());
+                // Récupérer les projets de l'équipe
+                List<Project> projects = projectDao.findProjectsByUserId(user.getId());
+                System.out.println("projects=" + projects);
+                // Passer la liste des projets comme un attribut de requête
+                request.setAttribute("projects", projects);
 
-        // Stocker la liste des membres de l'équipe comme un attribut de la requête
-        request.setAttribute("membresEquipe", membresEquipe);
-        List<Tache> alltache = taskDao.findAll();
-        int allTachesCount = alltache.size();
-        request.setAttribute("allTachesCount", allTachesCount);
+                // Récupérer la liste des membres de l'équipe
+                List<User> membresEquipe = userDao.findMembresEquipe(equipe);
+                // Stocker la liste des membres de l'équipe comme un attribut de la requête
+                request.setAttribute("membresEquipe", membresEquipe);
 
-        request.setAttribute("alltache", alltache);
+                // Liste pour stocker toutes les tâches
+                List<Tache> alltache = new ArrayList<>();
+
+                // Parcourir les projets de l'équipe
+                for (Project project : projects) {
+                    // Récupérer les tâches du projet
+                    List<Tache> tasks = taskDao.findTasksByProjectId(project.getId());
+                    // Ajouter les tâches à la liste globale
+                    alltache.addAll(tasks);
+                }
+
+                // Passer la liste des tâches comme un attribut de requête
+                request.setAttribute("alltache", alltache);
+                int allTachesCount = alltache.size();
+                request.setAttribute("allTachesCount", allTachesCount);
+            }
+        }
+
+        // Redirection vers la JSP pour afficher les tâches
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listTache.jsp");
         requestDispatcher.forward(request, response);
+    }
 
-        }
     private void profileGestionner(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
