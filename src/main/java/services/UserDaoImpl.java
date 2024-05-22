@@ -43,6 +43,18 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("x","Gestionner");
         return query.getResultList();
     }
+    public long countProjectsByChefId(Long chefId) {
+        TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(p) FROM Project p WHERE p.equipeproject.chefEquipe.id = :chefId", Long.class);
+        query.setParameter("chefId", chefId);
+        return query.getSingleResult();
+    }
+
+    public long countTachesByChefId(Long chefId) {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(t) FROM Tache t WHERE t.membreEquipe.equipe.chefEquipe.id = :chefId", Long.class);
+        query.setParameter("chefId", chefId);
+        return query.getSingleResult();
+    }
     public User findbyEmail(String email){
         Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email");
         query.setParameter("email", email);
