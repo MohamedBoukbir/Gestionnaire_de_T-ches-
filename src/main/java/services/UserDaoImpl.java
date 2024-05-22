@@ -104,7 +104,7 @@ public class UserDaoImpl implements UserDao {
         }
         entityManager.getTransaction().commit();
     }
-    @Transactional
+
     public void updateEquipe(Equipe equipe) {
         entityManager.getTransaction().begin();
         entityManager.merge(equipe);

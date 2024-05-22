@@ -38,7 +38,13 @@ public class AdminServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute("profile");
+            if (user != null) {
+                request.setAttribute("nomuserconnecter", user);
+            }
+        }
         System.out.println("AdminServlet");
         //request.getRequestDispatcher("Home.jsp").forward(request,response);
 
