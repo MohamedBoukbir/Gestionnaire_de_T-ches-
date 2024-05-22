@@ -22,13 +22,14 @@ import services.UserDaoImpl;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.*;
 
 @WebServlet(name = "AdminServlet", value = "/AdminServlet")
 public class AdminServlet extends HttpServlet {
     public UserDao userDao ;
     public IEquipeDao equipeDao ;
-    public TacheDaoImpl taskDao;
-    public ProjectDaoImpl projectDao;
+    public ITaskDao taskDao;
+    public IProjectDao projectDao;
     @Override
     public void init() throws ServletException {
         userDao=new UserDaoImpl();
@@ -119,19 +120,34 @@ public class AdminServlet extends HttpServlet {
         List<Project> ListProjet = ProjectDaoImpl.f;
         request.setAttribute("listUser", listUser);*/
         //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
-        List<User> listgestionners = userDao.findGestionners();
-        int allGestionnerCount = listgestionners.size();
-        List<User> members = userDao.findUsers();
-        int allMembersCount = members.size();
-        List<Tache>  taches =taskDao.findAll();
-        int allTachesCount = taches.size();
+        List<User> gestionners = userDao.findGestionners();
+        List<User> memberes = userDao.findUsers();
+        List<Tache> taches =taskDao.findAll();
         List<Project> projects = projectDao.findAll();
-        int allProjectsCount = projects.size();
+        int allTaches = taches.size();
+        int allProjects = projects.size();
+        int allMemberes = memberes.size();
+        int allGestionners = gestionners.size();
+        request.setAttribute("allTaches", allTaches);
+        request.setAttribute("allProjects", allProjects);
+        request.setAttribute("allMemberes", allMemberes);
+        request.setAttribute("allGestionners", allGestionners);
 
-        request.setAttribute("allProjectsCount", allProjectsCount);
-        request.setAttribute("allTachesCount", allTachesCount);
-        request.setAttribute("allGestionnerCount", allGestionnerCount);
-        request.setAttribute("allMembersCount", allMembersCount);
+        List<Map<String, Object>> gestionnerDetails = new ArrayList<>();
+
+        for (User gestionnaire : gestionners) {
+            long projectCount = userDao.countProjectsByChefId(gestionnaire.getId());
+            long tacheCount = userDao.countTachesByChefId(gestionnaire.getId());
+
+            Map<String, Object> gestionnaireMap = new HashMap<>();
+            gestionnaireMap.put("gestionnaire", gestionnaire);
+            gestionnaireMap.put("projectCount", projectCount);
+            gestionnaireMap.put("tacheCount", tacheCount);
+
+            gestionnerDetails.add(gestionnaireMap);
+        }
+
+        request.setAttribute("gestionnerDetails", gestionnerDetails);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Admin/listequipe.jsp");
         requestDispatcher.forward(request,response);
     }
