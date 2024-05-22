@@ -167,6 +167,8 @@ public class GestionnerHomeServlet extends HttpServlet {
 
         List<Project> listProject = projectDao.findAll();
         request.setAttribute("listProject", listProject);
+        int allprojectsCount = listProject.size();
+        request.setAttribute("allprojectsCount", allprojectsCount);
         //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listProjet.jsp");
         requestDispatcher.forward(request, response);
@@ -181,7 +183,8 @@ public class GestionnerHomeServlet extends HttpServlet {
                 List<User> membresEquipe = userDao.findMembresEquipe(equipe);
                 request.setAttribute("membresEquipe", membresEquipe);
                 List<User> allUsers = userDao.findUsersNotMembres();
-                request.setAttribute("allUsers", allUsers);
+                int AllMember = membresEquipe.size();
+                request.setAttribute("AllMember", AllMember);
         //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listequipe.jsp");
         requestDispatcher.forward(request, response);
@@ -228,6 +231,10 @@ public class GestionnerHomeServlet extends HttpServlet {
     private void listProjet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("list projects");
         List<Project> allprojects = projectDao.findAll();
+        int allprojectsCount = allprojects.size();
+        request.setAttribute("allprojectsCount", allprojectsCount);
+        System.out.println(allprojectsCount);
+
         request.setAttribute("allprojects", allprojects);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Gestionner/listProjet.jsp");
         requestDispatcher.forward(request, response);

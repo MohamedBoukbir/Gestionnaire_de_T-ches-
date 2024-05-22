@@ -8,7 +8,7 @@ import java.util.List;
 public interface IProjectDao {
     public void save(Project p);
 
-    public List<Project> findAll();
+    public  List<Project> findAll();
 
     public void deleteById(Long id);
 

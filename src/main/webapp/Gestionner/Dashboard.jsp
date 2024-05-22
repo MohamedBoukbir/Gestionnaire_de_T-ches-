@@ -68,9 +68,16 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- Datepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <style>
+
+
+        .v:hover{
+            background-color: transparent;
+        }
+    </style>
 </head>
+
 <body>
 <script>
     $(function () {
@@ -84,31 +91,31 @@
 </script>
 <div class="header">
 
-    <div class="header-left">
-        <a href="#" class="logo">
-            Gestion de projet
+    <div class="header-left" >
+
+
+        <a class="v" >
+            <img src="images/logo1.png"  style="height: 100%;">
         </a>
-        <a href="#" class="logo logo-small">
-            <span style="font-size: 10px;"> GestionP </span>
-        </a>
+<%--
         <a href="javascript:void(0);" id="toggle_btn">
                     <span class="bar-icon">
                         <span></span>
                         <span></span>
                         <span></span>
                     </span>
-        </a>
+        </a>--%>
     </div>
 
 
 
 
-    <div class="top-nav-search">
-        <form>
-            <input type="text" class="form-control" placeholder="">
-            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-        </form>
-    </div>
+    <%--   <div class="top-nav-search">
+           <form>
+               <input type="text" class="form-control" placeholder="">
+               <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+           </form>
+       </div>--%>
 
 
     <a class="mobile_btn" id="mobile_btn">
@@ -233,21 +240,21 @@
                 <span>Mohamed</span>
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#"><i data-feather="user" class="mr-1"></i>
-                    Profile</a>
-                <a class="dropdown-item" href="#"><i data-feather="settings" class="mr-1"></i>
-                    Settings</a>
+                <button type="submit" class="btn btn-link" style="margin-left: 0px">
+                    <a href="GestionnerHomeServlet?action=profileshow">
+                        <i style="color: #E0BE81; margin-right: 5px;" class="fa-solid fa-id-badge"></i>
+                        <span style="color: #052659; font-weight: bold">Profile</span>
+                    </a>
+                </button>
 
-                <form   id="logout-form" action="LogOutServlet">
-                    <button type="submit" class="btn btn-link"  >
+
+                <form   id="logout-form2" action="LogOutServlet">
+                    <button type="submit" class="btn btn-link"   style="margin-left: 0px" >
                         <a href="#" >
-                            <i data-feather="log-out" class="mr-1"></i>
-                            <span>Logout</span>
-
+                            <i class="fa-solid fa-link-slash" data-feather="log-out"  style="color: #E0BE81 ; " ></i>
+                            <span style="color: #052659 ; font-weight: bold" >  Deconnecte</span>
                         </a>
-
                     </button>
-
                 </form>
             </div>
         </li>
@@ -261,7 +268,8 @@
             <a class="dropdown-item" href="#">Settings</a>
             <a class="dropdown-item" href="#" href="#" href="#"
             >Logout</a>
-            <form id="logout-form" action="LogOutServlet" method="POST" class="d-none">
+            <form id="logout-form1" action="LogOutServlet" method="POST" class="d-none">
+
             </form>
         </div>
     </div>
@@ -285,58 +293,47 @@
                             </a>
                         </div>
                     </div>
-                    <div class="sidebar-input">
+                    <%--<div class="sidebar-input">
                         <div class="top-nav-search">
                             <form>
                                 <input type="text" class="form-control" placeholder="Search here">
                                 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                             </form>
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
                 <ul>
                     <li class=""> <%-- active--%>
-                        <a href="GestionnerHomeServlet?action=showDashboard"><img src="img/home.svg" alt="sidebar_img">
-                            <span>Dashboard</span></a>
+                        <a href="GestionnerHomeServlet?action=showDashboard"><i style="color: #E0BE81" class="fa-solid fa-gauge-high"></i>
+                            <span style="color: #052659">Projet</span></a>
                     </li>
 
-                    <%--                                <li class="#">--%>
+                    <li class="#">
+                        <a href="GestionnerHomeServlet?action=listequipe"><i class="fa-solid fa-people-group" style="color: #E0BE81"></i>
+                            <span style="color: #052659"> Equipe</span></a>
+                    </li>
+                    <li class="#">
+                        <a href="GestionnerHomeServlet?action=listTache"><i class="fa-solid fa-list-check" style="color: #E0BE81"></i>
+                            <span style="color: #052659"> Tache</span></a>
+                    </li>
 
-                    <%--                                <a href="#"><img src="img/report.svg"--%>
-                    <%--                                        alt="sidebar_img"><span> Groups</span></a>--%>
-                    <%--                            </li>--%>
-                    <li class="#">
-                        <a href="GestionnerHomeServlet?action=listequipe"><img src="img/employee.svg" alt="sidebar_img">
-                            <span> Equipe</span></a>
-                    </li>
-                    <li class="#">
-                        <a href="GestionnerHomeServlet?action=listTache"><img src="img/employee.svg" alt="sidebar_img">
-                            <span> Tache</span></a>
-                    </li>
-                    <%--                            <li  class="active">--%>
-                    <%--                                <a href="#"><img src="img/settings.svg"--%>
-                    <%--                                        alt="sidebar_img"><span>Settings</span></a>--%>
-                    <%--                            </li>--%>
                     <li  class="#">
-                        <a href="GestionnerHomeServlet?action=profileshow"><img src="img/profile.svg" alt="sidebar_img">
-                            <span>Profile</span></a>
+                        <a href="GestionnerHomeServlet?action=profileshow"><i  style="color: #E0BE81" class="fa-solid fa-id-badge"></i>
+                            <span style="color: #052659">Profile</span></a>
                     </li>
 
                     <li>
                         <form   id="logout-form" action="LogOutServlet">
-                            <button type="submit" class="btn btn-link"  >
+                            <button type="submit" class="btn btn-link"   style="margin-left: 0px" >
                                 <a href="#" >
-                                    <img src="img/logout.svg" alt="sidebar_img">
-                                    <span>Log out</span>
-
+                                    <i class="fa-solid fa-link-slash" data-feather="log-out"  style="color: #E0BE81 ; " ></i>
+                                    <span style="color: #052659 ; font-weight: bold" >  Deconnecte</span>
                                 </a>
-
                             </button>
-
                         </form>
-
-
                     </li>
+
+
                 </ul>
 
             </div>

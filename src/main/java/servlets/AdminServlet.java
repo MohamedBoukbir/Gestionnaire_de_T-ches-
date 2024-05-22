@@ -1,8 +1,10 @@
 package servlets;
 import Dao.IEquipeDao;
+import Dao.IProjectDao;
 import Dao.ITaskDao;
 import Dao.UserDao;
 import entity.Equipe;
+import entity.Project;
 import entity.Tache;
 import entity.User;
 import jakarta.persistence.EntityManager;
@@ -13,6 +15,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import services.EquipeDaoImpl;
+import services.ProjectDaoImpl;
 import services.UserDaoImpl;
 
 import java.io.IOException;
@@ -40,7 +43,7 @@ public class AdminServlet extends HttpServlet {
         System.out.println("art=" +at);
 
         switch (at) {
-           /* case "/AdminServlet":
+            /*case "/AdminServlet":
                 showDashboard(request, response);
                 break;*/
             case "addGestionner":
@@ -100,10 +103,12 @@ public class AdminServlet extends HttpServlet {
 
     private void showDashboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<User> listUser = userDao.findAll();
+      /*  List<User> listUser = userDao.findAll();
         request.setAttribute("listUser", listUser);
+        List<Project> ListProjet = ProjectDaoImpl.f;
+        request.setAttribute("listUser", listUser);*/
         //RequestDispatcher requestDispatcher = request.getRequestDispatcher("AdminDashboard.jsp");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Admin/listeUsers.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Admin/listequipe.jsp");
         requestDispatcher.forward(request,response);
     }
     private void profileAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -129,6 +134,7 @@ public class AdminServlet extends HttpServlet {
             User user =userDao.findById(id);
             user.setEquipe(null);
             user.setRole("Gestionner");
+            System.out.println("Gestionner");
             Equipe equipe = new Equipe("equipe"+id,user);
             equipeDao.save(equipe);
             user.setEquipeEnCharge(equipe);
@@ -150,6 +156,7 @@ public class AdminServlet extends HttpServlet {
         List<User> users = userDao.findUsers();
         int allUsersCount = allusers.size();
         request.setAttribute("allUsersCount", allUsersCount);
+
         request.setAttribute("allusers", allusers);
         request.setAttribute("users", users);
         request.setAttribute("listgestionners", listgestionners);

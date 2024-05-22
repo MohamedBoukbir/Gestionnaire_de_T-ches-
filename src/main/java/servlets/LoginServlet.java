@@ -9,9 +9,6 @@ import java.io.IOException;
 public class LoginServlet  extends HttpServlet{
     public final AuthService authService = new AuthService();
 
-
-
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("testtttttttttttttttttttt");
@@ -27,9 +24,12 @@ public class LoginServlet  extends HttpServlet{
 
         String password = request.getParameter("password");
         String email = request.getParameter("email");
+        System.out.println(",assima's Home");
+
         try
         {
             String userValidate = authService.auhenticate(email,password,request);
+            System.out.println( userValidate);
 
             if(userValidate.equals("Admin"))
             {
