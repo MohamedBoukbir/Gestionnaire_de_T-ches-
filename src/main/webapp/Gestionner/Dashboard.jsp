@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css"  href="css/style1.css">
     <link rel="stylesheet" type="text/css" href="css/style_acceuil.css">
     <link rel="stylesheet" type="text/css"  href="css/select2.min.css" />
-
+    <link rel="icon" type="image/png" href="images/logo1.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 

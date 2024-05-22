@@ -8,7 +8,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+      <link rel="icon" type="image/png" href="images/logo1.png">
 	<link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/menu.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

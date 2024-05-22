@@ -5,6 +5,8 @@ import Util.UserStatus;
 import entity.Equipe;
 import entity.User;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
@@ -102,6 +104,7 @@ public class UserDaoImpl implements UserDao {
         }
         entityManager.getTransaction().commit();
     }
+    @Transactional
     public void updateEquipe(Equipe equipe) {
         entityManager.getTransaction().begin();
         entityManager.merge(equipe);
