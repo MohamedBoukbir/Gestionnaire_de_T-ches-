@@ -96,6 +96,9 @@
          float: right;
          color: #999;
      }
+     .text-custom-orange {
+         color: orange;
+     }
  </style>
         <div class="page-wrapper">
             <div class="content container-fluid">
@@ -180,6 +183,47 @@
                 </div>
 
                 <div class="row">
+
+                    <div class="col-xl-6 d-flex mobile-h">
+                        <div class="card flex-fill">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">TOOOTAL 1</h5>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="invoice_chart"></div>
+                                <div class="text-center text-muted">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="mt-4">
+                                                <p class="mb-2 text-truncate"><i class="fas fa-circle text-primary mr-1"></i>
+                                                    Members</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mt-4">
+                                                <p class="mb-2 text-truncate"><i class="fas fa-circle text-success mr-1"></i>
+                                                    Projects </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mt-4">
+                                                <p class="mb-2 text-truncate"><i class="fas fa-circle text-custom-orange mr-1"></i>
+                                                    Gestionners</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mt-4">
+                                                <p class="mb-2 text-truncate"><i class="fas fa-circle text-danger mr-1">
+                                                </i> Taches </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-xl-6 d-flex justify-content-center " >
                         <div class="card flex-fill">
                             <div class="card-header">
