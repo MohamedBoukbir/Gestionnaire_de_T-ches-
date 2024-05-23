@@ -34,7 +34,7 @@ public class AuthService {
                 }
 
             }else {
-                return "Your account has been Blocked";
+                return "votre compte a été bloqué";
 
             }
 

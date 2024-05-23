@@ -94,7 +94,7 @@
                         </div>
 
                         <div class="kanban-column">
-                            <h4>COMPLETED</h4>
+                            <h4>COMPLETE</h4>
                             <c:forEach items="${completedList}" var="completed">
                                 <div class="kanban-card" style="margin-top: 4%">
                                     <h5 class="card-title"><c:out value="${completed.titretache}" /></h5>

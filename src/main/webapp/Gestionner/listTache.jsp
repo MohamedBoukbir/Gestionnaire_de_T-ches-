@@ -394,7 +394,7 @@
                          <div class="form-group">
                              <label for="deadline" style="color: #052659 ; font-weight: bold;">Dernier delais</label>
                              <div class="datepicker date input-group">
-                                 <input  style="border-color: #E0BE81;padding-right: 60px; height: 45px" type="text" name="deadline" placeholder="Deadline" class="form-control" id="deadline" required> <!-- Augmenter le padding-right pour l'icône -->
+                                 <input  style="border-color: #E0BE81;padding-right: 60px; height: 45px" type="text" name="deadline" placeholder="dernier delais" class="form-control" id="deadline" required> <!-- Augmenter le padding-right pour l'icône -->
                                  <span class="input-group-append" style="position: absolute; right: 5px; top: 0; bottom: 0; margin: auto; margin-right: 5px;"> <!-- Ajuster la position de l'icône -->
             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
         </span>

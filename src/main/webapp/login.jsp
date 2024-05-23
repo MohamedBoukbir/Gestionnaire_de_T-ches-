@@ -1,5 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="false" %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css"
+	  integrity="sha512-9YHSK59/rjvhtDcY/b+4rdnl0V4LPDWdkKceBl8ZLF5TB6745ml1AfluEU6dFWqwDw9lPvnauxFgpKvJqp7jiQ=="
+	  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" type="text/css"   href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"  href="plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" type="text/css"  href="plugins/fontawesome/css/all.min.css">
+
+<link rel="icon" type="image/png" href="images/logo1.png">
 <!doctype html>
 <html lang="en">
   <head>
@@ -53,9 +65,16 @@
 					<div class="login-wrap p-0">
 
 		      	<form action="LoginServlet" method="POST" class="signin-form">
-		      	    <% if(request.getAttribute("errMessage")!=null){ String error = request.getAttribute("errMessage").toString();%>
+		      	  <%--  <% if(request.getAttribute("errMessage")!=null){ String error = request.getAttribute("errMessage").toString();%>
                     <div  style="color : red"><%=error%></div>
-                    <% }%>
+                    <% }%>--%>
+
+					<% if(request.getAttribute("errMessage")!=null){ String error = request.getAttribute("errMessage").toString();%>
+					<div th:if="${error}" class="error-message alert-danger" style="justify-content: center; width:70%; border-radius: 4px; border-left: 6px solid #FF002D; background-color: #fffbe2; color: #FF002D; margin-left: auto; margin-right: auto; text-align: center;">
+						<i class="fa-regular fa-bell" th:if="${error}"></i>
+						<p th:text="${error}"></p>
+						<%=error%></div>
+					<% }%>
                     <div class="form-group">
 		      			<input type="text" name="email"  class="form-control" placeholder="E-mail" required>
                     </div>
